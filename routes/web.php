@@ -32,3 +32,29 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/users/{user}', fn() => view('admin.users.show'))->name('users.show');
 
 });
+
+Route::prefix('student')->name('student.')->group(function () {
+
+    // Dashboard
+    Route::get('/dashboard', fn() => view('student.dashboard'))->name('dashboard');
+
+    // Courses
+    Route::get('/courses', fn() => view('student.courses.index'))->name('courses.index');
+    Route::get('/courses/{course}', fn() => view('student.courses.show'))->name('courses.show');
+
+    // Teachers
+    Route::get('/teachers', fn() => view('student.teachers.index'))->name('teachers.index');
+    Route::get('/teachers/{teacher}', fn() => view('student.teachers.show'))->name('teachers.show');
+
+    // Bookings
+    Route::get('/bookings', fn() => view('student.bookings.index'))->name('bookings.index');
+    Route::get('/bookings/create', fn() => view('student.bookings.create'))->name('bookings.create');
+    Route::get('/bookings/{booking}', fn() => view('student.bookings.show'))->name('bookings.show');
+
+    // Progress
+    Route::get('/progress', fn() => view('student.progress.index'))->name('progress.index');
+
+    // Messages
+    Route::get('/messages', fn() => view('student.messages.index'))->name('messages.index');
+
+});
