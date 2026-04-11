@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::get('/register_teacher', [RegisterController::class, 'index'])->name('register_teacher');
+Route::get('/register/teacher', [RegisterController::class, 'index'])->name('register.teacher');
 /// Socialite Auth
 Route::controller(GoogleController::class)->group(function () {
     Route::get('/auth/callback/{provider}', 'callback')->name('google.callback');
