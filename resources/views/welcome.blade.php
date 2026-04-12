@@ -7,8 +7,7 @@
     <title>EduIndependent - Public Landing Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
     @vite('resources/css/app.css')
     <style>
@@ -50,15 +49,15 @@
                     business with integrated booking and payments.
                 </p>
                 <div class="flex flex-wrap gap-4 pt-4">
-                    <button
+                    <a href="{{ route('login') }}"
                         class="px-8 py-4 bg-primary text-white font-bold rounded-xl hover:scale-[1.02] transition-transform flex items-center gap-2">
                         Start Learning Now
                         <span class="material-symbols-outlined">arrow_forward</span>
-                    </button>
-                    <button
+                    </a>
+                    <a href="{{ route('register.teacher') }}"
                         class="px-8 py-4 border-2 border-slate-200 dark:border-slate-800 font-bold rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                         Become a Teacher
-                    </button>
+                    </a>
                 </div>
                 <div class="flex items-center gap-6 pt-4 text-slate-500">
                     <div class="flex items-center gap-2 text-sm font-medium">
@@ -211,6 +210,253 @@
             </div>
         </section>
 
+        <!-- FOR TEACHERS -->
+        <section id="for-teachers" class="py-24 bg-slate-50 dark:bg-slate-900/50">
+            <div class="max-w-[1440px] mx-auto px-10">
+
+                {{-- Section Header --}}
+                <div class="text-center mb-16">
+                    <h2 class="text-primary font-bold tracking-widest uppercase text-sm mb-4">For Teachers</h2>
+                    <h3 class="text-4xl font-black mb-6">
+                        Your knowledge. <span class="text-primary">Your rules.</span>
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+                        Join thousands of independent teachers who have ditched the classroom limits and built
+                        a thriving teaching business — fully online, fully on their terms.
+                    </p>
+                </div>
+
+                {{-- Trust Numbers --}}
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+                    @php
+                        $numbers = [
+                            [
+                                'value' => '$2.4M+',
+                                'label' => 'Paid to Teachers',
+                                'icon' => 'payments',
+                                'color' => 'text-primary bg-primary/10',
+                            ],
+                            [
+                                'value' => '1,240',
+                                'label' => 'Active Teachers',
+                                'icon' => 'person_pin_circle',
+                                'color' => 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20',
+                            ],
+                            [
+                                'value' => '4.8★',
+                                'label' => 'Avg. Teacher Rating',
+                                'icon' => 'star',
+                                'color' => 'text-amber-600 bg-amber-50 dark:bg-amber-900/20',
+                            ],
+                            [
+                                'value' => '$1,800',
+                                'label' => 'Avg. Monthly Earnings',
+                                'icon' => 'trending_up',
+                                'color' => 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20',
+                            ],
+                        ];
+                    @endphp
+                    @foreach ($numbers as $stat)
+                        <div
+                            class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 text-center hover:shadow-lg transition-shadow">
+                            <div
+                                class="size-12 {{ $stat['color'] }} rounded-xl flex items-center justify-center mx-auto mb-4">
+                                <span class="material-symbols-outlined">{{ $stat['icon'] }}</span>
+                            </div>
+                            <p class="text-3xl font-black mb-1">{{ $stat['value'] }}</p>
+                            <p class="text-sm text-slate-500">{{ $stat['label'] }}</p>
+                        </div>
+                    @endforeach
+                </div>
+
+                {{-- Main Content: Value Props + How it Works --}}
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
+
+                    {{-- Left: Value Propositions --}}
+                    <div class="space-y-6">
+                        <h4 class="text-3xl font-black">Why teachers <span class="text-primary">love</span> us</h4>
+                        <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+                            We handle the tech, payments, and bookings — you focus entirely on teaching.
+                        </p>
+
+                        @php
+                            $values = [
+                                [
+                                    'icon' => 'schedule',
+                                    'color' => 'bg-primary/10 text-primary',
+                                    'title' => 'You control your schedule',
+                                    'desc' =>
+                                        'Set your own availability. Teach mornings, evenings, or weekends — whatever fits your life.',
+                                ],
+                                [
+                                    'icon' => 'payments',
+                                    'color' => 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20',
+                                    'title' => 'You set your own price',
+                                    'desc' =>
+                                        'Define your hourly rate based on your expertise. No platform dictating what you earn.',
+                                ],
+                                [
+                                    'icon' => 'menu_book',
+                                    'color' => 'bg-indigo-50 text-indigo-600 dark:bg-indigo-900/20',
+                                    'title' => 'Full curriculum freedom',
+                                    'desc' =>
+                                        'Create your own courses and sessions. No rigid syllabus — teach the way you know best.',
+                                ],
+                                [
+                                    'icon' => 'account_balance_wallet',
+                                    'color' => 'bg-amber-50 text-amber-600 dark:bg-amber-900/20',
+                                    'title' => 'Get paid per session',
+                                    'desc' =>
+                                        'Receive payments directly and securely after every confirmed session. No delays.',
+                                ],
+                                [
+                                    'icon' => 'verified_user',
+                                    'color' => 'bg-rose-50 text-rose-600 dark:bg-rose-900/20',
+                                    'title' => 'Verified badge & trust',
+                                    'desc' =>
+                                        'Get a verified teacher badge after validation — build credibility and attract more students.',
+                                ],
+                            ];
+                        @endphp
+
+                        <div class="space-y-4">
+                            @foreach ($values as $value)
+                                <div
+                                    class="flex items-start gap-4 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:shadow-sm transition-all group">
+                                    <div
+                                        class="size-10 {{ $value['color'] }} rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                        <span class="material-symbols-outlined">{{ $value['icon'] }}</span>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-bold mb-0.5">{{ $value['title'] }}</h5>
+                                        <p class="text-sm text-slate-500 leading-relaxed">{{ $value['desc'] }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    {{-- Right: How it Works for Teachers --}}
+                    <div
+                        class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-10 shadow-xl">
+                        <h4 class="text-2xl font-black mb-8">Start in <span class="text-primary">3 simple steps</span>
+                        </h4>
+
+                        <div
+                            class="space-y-8 relative before:absolute before:left-5 before:top-10 before:bottom-10 before:w-0.5 before:bg-slate-100 dark:before:bg-slate-800">
+
+                            {{-- Step 1 --}}
+                            <div class="flex items-start gap-5 relative">
+                                <div
+                                    class="size-10 rounded-full bg-primary text-white flex items-center justify-center font-black text-sm flex-shrink-0 z-10">
+                                    1
+                                </div>
+                                <div class="pt-1">
+                                    <h5 class="font-bold text-lg mb-1">Create your profile</h5>
+                                    <p class="text-sm text-slate-500 leading-relaxed">
+                                        Sign up, fill in your subjects, experience, and upload your documents. Our team
+                                        will verify your profile within 48 hours.
+                                    </p>
+                                    <div class="flex items-center gap-2 mt-3 text-xs text-emerald-600 font-bold">
+                                        <span class="material-symbols-outlined text-sm">check_circle</span>
+                                        Free to join — no upfront cost
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Step 2 --}}
+                            <div class="flex items-start gap-5 relative">
+                                <div
+                                    class="size-10 rounded-full bg-primary text-white flex items-center justify-center font-black text-sm flex-shrink-0 z-10">
+                                    2
+                                </div>
+                                <div class="pt-1">
+                                    <h5 class="font-bold text-lg mb-1">Set your availability & rate</h5>
+                                    <p class="text-sm text-slate-500 leading-relaxed">
+                                        Define your weekly schedule and set your hourly price. Students will see your
+                                        availability and book directly from your profile.
+                                    </p>
+                                    <div class="flex items-center gap-2 mt-3 text-xs text-primary font-bold">
+                                        <span class="material-symbols-outlined text-sm">tune</span>
+                                        Full control over your calendar
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Step 3 --}}
+                            <div class="flex items-start gap-5 relative">
+                                <div
+                                    class="size-10 rounded-full bg-primary text-white flex items-center justify-center font-black text-sm flex-shrink-0 z-10">
+                                    3
+                                </div>
+                                <div class="pt-1">
+                                    <h5 class="font-bold text-lg mb-1">Teach & get paid</h5>
+                                    <p class="text-sm text-slate-500 leading-relaxed">
+                                        Conduct your sessions via our integrated video system. Payment is automatically
+                                        released to you after each confirmed session.
+                                    </p>
+                                    <div class="flex items-center gap-2 mt-3 text-xs text-amber-600 font-bold">
+                                        <span class="material-symbols-outlined text-sm">bolt</span>
+                                        Fast, secure payouts
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        {{-- CTA --}}
+                        <div class="mt-10 pt-8 border-t border-slate-100 dark:border-slate-800">
+                            <a href="{{ route('register.teacher') }}"
+                                class="flex items-center justify-center gap-2 w-full py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 hover:scale-[1.02] transition-all text-lg">
+                                <span class="material-symbols-outlined">school</span>
+                                Start Teaching Today
+                            </a>
+                            <p class="text-center text-xs text-slate-400 mt-3">Free to join · Verified in 48h · No
+                                hidden fees</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                {{-- Teacher Testimonial --}}
+                <div class="bg-primary rounded-3xl p-10 md:p-14 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 opacity-10 p-8">
+                        <span class="material-symbols-outlined text-[10rem]">format_quote</span>
+                    </div>
+                    <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                        <div class="md:col-span-2">
+                            <p class="text-white text-xl md:text-2xl font-bold leading-relaxed mb-6">
+                                "I left my 9-to-5 teaching job 8 months ago. Today I earn more, work fewer hours, and
+                                actually enjoy teaching again. This platform gave me back my freedom."
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="size-12 rounded-full bg-white/20 flex items-center justify-center text-white font-black">
+                                    AL
+                                </div>
+                                <div>
+                                    <p class="text-white font-bold">Amina Larbi</p>
+                                    <p class="text-white/70 text-sm">Arabic Language Teacher · 210 students</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center md:items-end gap-4">
+                            <div
+                                class="bg-white/10 backdrop-blur rounded-2xl p-6 text-white text-center w-full md:w-auto">
+                                <p class="text-4xl font-black mb-1">$3,200</p>
+                                <p class="text-white/70 text-sm">Earned last month</p>
+                            </div>
+                            <a href="{{ route('register.teacher') }}"
+                                class="bg-white text-primary px-6 py-3 rounded-xl font-bold hover:bg-slate-50 transition-colors w-full md:w-auto text-center">
+                                Join Amina & 1,240+ Teachers
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
         <!-- Testimonials -->
         <section class="py-24 bg-primary relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
@@ -294,18 +540,126 @@
                 <h3 class="text-4xl md:text-5xl font-black mb-8 relative z-10">Ready to start your journey?</h3>
                 <p class="text-white/70 text-lg mb-10 max-w-2xl mx-auto relative z-10">Join thousands of students and
                     teachers who are building the future of education together.</p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-                    <button
-                        class="bg-primary px-10 py-4 rounded-xl font-bold text-lg hover:bg-primary/90 transition-all">Join
-                        as a Student</button>
-                    <button
-                        class="bg-white text-background-dark px-10 py-4 rounded-xl font-bold text-lg hover:bg-slate-100 transition-all">Start
-                        Teaching</button>
-                </div>
+                {{-- Join as a Student --}}
+                <a href="{{ route('register') }}"
+                    class="bg-primary px-10 py-4 rounded-xl font-bold text-lg hover:bg-primary/90 transition-all">
+                    Join as a Student
+                </a>
+
+                {{-- Start Teaching --}}
+                <a href="{{ route('register.teacher') }}"
+                    class="bg-white text-background-dark px-10 py-4 rounded-xl font-bold text-lg hover:bg-slate-100 transition-all">
+                    Start Teaching
+                </a>
             </div>
         </section>
 
     </main>
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 px-10 max-w-[1440px] mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-primary font-bold tracking-widest uppercase text-sm mb-4">Pricing</h2>
+            <h3 class="text-4xl font-black mb-6">Pay for What You Need</h3>
+            <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                No subscriptions, no hidden fees. Each teacher sets their own rate — you only pay per session you book.
+                Browse teachers and find the perfect fit for your budget.
+            </p>
+        </div>
+
+        {{-- How Pricing Works --}}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div
+                class="text-center p-8 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+                <div
+                    class="size-14 bg-primary/10 text-primary rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <span class="material-symbols-outlined text-3xl">person_pin_circle</span>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Teacher Sets the Rate</h4>
+                <p class="text-slate-500 text-sm leading-relaxed">Every independent teacher defines their own hourly
+                    price based on their experience, subject, and availability.</p>
+            </div>
+            <div
+                class="text-center p-8 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+                <div
+                    class="size-14 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <span class="material-symbols-outlined text-3xl">payments</span>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Pay Per Session</h4>
+                <p class="text-slate-500 text-sm leading-relaxed">You only pay for the sessions you book. No monthly
+                    fees, no commitments. Cancel up to 24h before for a full refund.</p>
+            </div>
+            <div
+                class="text-center p-8 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+                <div
+                    class="size-14 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <span class="material-symbols-outlined text-3xl">verified</span>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Secure Payments</h4>
+                <p class="text-slate-500 text-sm leading-relaxed">All transactions are encrypted and protected. Pay by
+                    card or mobile wallet — your money is safe until the session is confirmed.</p>
+            </div>
+        </div>
+
+        {{-- Price Range Examples --}}
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-10">
+            <h4 class="text-xl font-bold text-center mb-8">Typical Price Ranges by Subject</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                @php
+                    $ranges = [
+                        [
+                            'subject' => 'Languages',
+                            'icon' => 'translate',
+                            'min' => 20,
+                            'max' => 50,
+                            'color' => 'text-primary bg-primary/10',
+                        ],
+                        [
+                            'subject' => 'Coding & Tech',
+                            'icon' => 'code',
+                            'min' => 40,
+                            'max' => 90,
+                            'color' => 'text-emerald-600 bg-emerald-50',
+                        ],
+                        [
+                            'subject' => 'Sciences & Math',
+                            'icon' => 'science',
+                            'min' => 25,
+                            'max' => 70,
+                            'color' => 'text-indigo-600 bg-indigo-50',
+                        ],
+                        [
+                            'subject' => 'Arts & Design',
+                            'icon' => 'design_services',
+                            'min' => 30,
+                            'max' => 80,
+                            'color' => 'text-amber-600 bg-amber-50',
+                        ],
+                    ];
+                @endphp
+                @foreach ($ranges as $range)
+                    <div class="flex flex-col items-center text-center p-6 rounded-2xl bg-slate-50 dark:bg-slate-800">
+                        <div class="size-12 rounded-xl {{ $range['color'] }} flex items-center justify-center mb-3">
+                            <span class="material-symbols-outlined">{{ $range['icon'] }}</span>
+                        </div>
+                        <h5 class="font-bold mb-1">{{ $range['subject'] }}</h5>
+                        <p class="text-2xl font-black text-slate-900 dark:text-white">${{ $range['min'] }}<span
+                                class="text-slate-400 font-normal text-base"> — </span>${{ $range['max'] }}</p>
+                        <p class="text-xs text-slate-400 mt-1">per hour</p>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
+                <p class="text-slate-500 text-sm mb-4">Prices vary by teacher experience, qualifications, and demand.
+                    Always visible before you book.</p>
+                <a href="{{ route('login') }}"
+                    class="inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-xl font-bold hover:bg-primary/90 transition-colors">
+                    Browse Teachers & Rates
+                    <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 pt-20 pb-10">
