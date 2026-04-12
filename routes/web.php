@@ -58,3 +58,16 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::get('/messages', fn() => view('student.messages.index'))->name('messages.index');
 
 });
+
+Route::prefix('teacher')->name('teacher.')->group(function () {
+    Route::get('/dashboard', fn() => view('teacher.dashboard'))->name('dashboard');
+    Route::get('/courses', fn() => view('teacher.courses.index'))->name('courses.index');
+    Route::get('/courses/create', fn() => view('teacher.courses.create'))->name('courses.create');
+    Route::get('/courses/{course}', fn() => view('teacher.courses.show'))->name('courses.show');
+    Route::get('/courses/{course}/edit', fn() => view('teacher.courses.edit'))->name('courses.edit');
+    Route::get('/sessions', fn() => view('teacher.sessions.index'))->name('sessions.index');
+    Route::get('/sessions/create', fn() => view('teacher.sessions.create'))->name('sessions.create');
+    Route::get('/students', fn() => view('teacher.students.index'))->name('students.index');
+    Route::get('/students/{student}', fn() => view('teacher.students.show'))->name('students.show');
+    Route::get('/messages', fn() => view('teacher.messages.index'))->name('messages.index');
+});
