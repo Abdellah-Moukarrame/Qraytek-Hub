@@ -6,9 +6,12 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/login', [LoginController::class, 'index'])->name('login.index');
+Route::post('/login', [LoginController::class, 'login'])->name('login.create');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 Route::get('/register/teacher', [RegisterController::class, 'index'])->name('register.teacher');
 /// Socialite Auth
 Route::controller(GoogleController::class)->group(function () {
