@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Personnes extends Model
+
+class Personnes extends Authenticatable
 {
-    public function index(){
-        
-    }
+
+    protected $fillable = ['id','name','role','email','password'];
+
 }
