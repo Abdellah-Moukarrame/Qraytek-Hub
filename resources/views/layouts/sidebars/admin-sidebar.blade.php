@@ -1,4 +1,5 @@
-<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col fixed inset-y-0 left-0 z-50">
+<aside
+    class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col fixed inset-y-0 left-0 z-50">
 
     {{-- Logo --}}
     <div class="p-6 flex items-center gap-3">
@@ -65,7 +66,14 @@
                 <p class="text-sm font-semibold truncate">{{ auth()->user()->name ?? 'Admin' }}</p>
                 <p class="text-xs text-slate-500 truncate">Global Controller</p>
             </div>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="text-slate-400 hover:text-slate-600 transition-colors">
+                    <span class="material-symbols-outlined text-xl">logout</span>
+                </button>
+            </form>
         </div>
+
     </div>
 
 </aside>

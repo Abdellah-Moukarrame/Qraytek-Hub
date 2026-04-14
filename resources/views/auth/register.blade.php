@@ -7,8 +7,10 @@
     <title>Register - EduPlatform</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -35,7 +37,8 @@
     </script>
 </head>
 
-<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen overflow-x-hidden">
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen overflow-x-hidden">
 
 
     <div class="flex min-h-screen w-full">
@@ -54,7 +57,8 @@
                 </div>
                 <h1 class="text-5xl font-bold leading-tight mb-4">Start your journey with us today.</h1>
                 <p class="text-xl text-white/90 leading-relaxed">
-                    Join thousands of educators and students on a platform built for seamless learning, bookings, and growth.
+                    Join thousands of educators and students on a platform built for seamless learning, bookings, and
+                    growth.
                 </p>
 
                 {{-- Feature highlights --}}
@@ -96,7 +100,8 @@
         </div>
 
         {{-- Right Side: Register Form --}}
-        <div class="w-full lg:w-2/5 bg-white dark:bg-background-dark flex flex-col justify-center px-8 sm:px-16 lg:px-12 xl:px-20 py-12 overflow-y-auto">
+        <div
+            class="w-full lg:w-2/5 bg-white dark:bg-background-dark flex flex-col justify-center px-8 sm:px-16 lg:px-12 xl:px-20 py-12 overflow-y-auto">
             <div class="max-w-md w-full mx-auto">
 
                 {{-- Mobile Logo --}}
@@ -107,7 +112,8 @@
 
                 <div class="mb-8 text-center lg:text-left">
                     <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Create your account</h2>
-                    <p class="text-slate-500 dark:text-slate-400">Select your role and fill in your details to get started.</p>
+                    <p class="text-slate-500 dark:text-slate-400">Select your role and fill in your details to get
+                        started.</p>
                 </div>
 
                 {{-- Role Selection --}}
@@ -134,14 +140,16 @@
                         <div class="absolute top-2 right-2 hidden" id="check-teacher">
                             <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
                         </div>
-                        <div class="p-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 group-hover:bg-primary/10 group-hover:text-primary">
+                        <div
+                            class="p-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 group-hover:bg-primary/10 group-hover:text-primary">
                             <span class="material-symbols-outlined text-3xl">person_book</span>
                         </div>
                         <div class="text-center">
                             <span class="block font-bold text-slate-900 dark:text-white">Teacher</span>
                             <span class="text-xs text-slate-500 dark:text-slate-400">Manage business</span>
                         </div>
-                        <span class="absolute -top-2 -right-1 bg-accent-orange text-white text-[10px] px-2 py-0.5 rounded-full font-bold shadow-sm">NEW</span>
+                        <span
+                            class="absolute -top-2 -right-1 bg-accent-orange text-white text-[10px] px-2 py-0.5 rounded-full font-bold shadow-sm">NEW</span>
                     </button>
 
                 </div>
@@ -151,55 +159,47 @@
                     <button type="button"
                         class="flex w-full items-center justify-center gap-3 h-12 px-4 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors font-medium">
                         <svg class="w-5 h-5" viewBox="0 0 24 24">
-                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
-                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" />
-                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+                            <path
+                                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                                fill="#4285F4" />
+                            <path
+                                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                                fill="#34A853" />
+                            <path
+                                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"
+                                fill="#FBBC05" />
+                            <path
+                                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                                fill="#EA4335" />
                         </svg>
                         <span>Sign up with Google</span>
-                    </button>
-                    <button type="button"
-                        class="flex w-full items-center justify-center gap-3 h-12 px-4 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors font-medium">
-                        <svg class="w-5 h-5 dark:fill-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M17.05 20.28c-.96.95-2.04 1.72-3.14 1.72-1.07 0-1.47-.64-2.75-.64-1.28 0-1.74.62-2.75.64-1.04.02-2.18-.78-3.14-1.72-2.17-2.14-2.68-5.59-1.12-7.79 1.11-1.57 2.89-2.5 4.54-2.5 1.25 0 2.22.62 3.03.62.77 0 1.96-.71 3.35-.71 1.04 0 2.41.44 3.34 1.48-2.67 1.55-2.22 5.32.44 6.55-.58 1.54-1.2 2.76-1.8 3.35zM12.03 7.25c-.02-2.16 1.79-4.04 3.97-4.25.21 2.25-1.92 4.17-3.97 4.25z" />
-                        </svg>
-                        <span>Sign up with Apple</span>
                     </button>
                 </div>
 
                 {{-- Divider --}}
                 <div class="relative flex items-center justify-center mb-8">
                     <div class="flex-grow border-t border-slate-200 dark:border-slate-800"></div>
-                    <span class="flex-shrink mx-4 text-xs font-medium text-slate-400 uppercase tracking-widest">Or register with email</span>
+                    <span class="flex-shrink mx-4 text-xs font-medium text-slate-400 uppercase tracking-widest">Or
+                        register with email</span>
                     <div class="flex-grow border-t border-slate-200 dark:border-slate-800"></div>
                 </div>
 
                 {{-- Register Form --}}
-                <form method="POST" action="{{ route('register') }}" class="space-y-5">
+                <form method="POST" action="{{ route('register.store') }}" class="space-y-5">
                     @csrf
                     <input type="hidden" name="role" id="selected-role" value="student" />
 
                     {{-- Full Name --}}
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label for="first_name" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                                First Name
+                            <label for="first_name"
+                                class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                Full Name
                             </label>
-                            <input id="first_name" name="first_name" type="text" value="{{ old('first_name') }}" required
-                                autocomplete="given-name" placeholder="John"
+                            <input id="first_name" name="name" type="text" value="{{ old('first_name') }}"
+                                required autocomplete="given-name" placeholder="John"
                                 class="w-full h-12 px-4 rounded-lg bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder:text-slate-400 @error('first_name') border-red-500 @enderror" />
                             @error('first_name')
-                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <div>
-                            <label for="last_name" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                                Last Name
-                            </label>
-                            <input id="last_name" name="last_name" type="text" value="{{ old('last_name') }}" required
-                                autocomplete="family-name" placeholder="Doe"
-                                class="w-full h-12 px-4 rounded-lg bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder:text-slate-400 @error('last_name') border-red-500 @enderror" />
-                            @error('last_name')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                             @enderror
                         </div>
@@ -207,7 +207,8 @@
 
                     {{-- Email --}}
                     <div>
-                        <label for="email" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                        <label for="email"
+                            class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                             Email Address
                         </label>
                         <input id="email" name="email" type="email" value="{{ old('email') }}" required
@@ -219,8 +220,9 @@
                     </div>
 
                     {{-- Phone (optional) --}}
-                    <div>
-                        <label for="phone" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    {{-- <div>
+                        <label for="phone"
+                            class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                             Phone Number <span class="text-slate-400 font-normal">(optional)</span>
                         </label>
                         <input id="phone" name="phone" type="tel" value="{{ old('phone') }}"
@@ -229,15 +231,16 @@
                         @error('phone')
                             <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     {{-- Password --}}
                     <div>
-                        <label for="password" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                        <label for="password"
+                            class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                             Password
                         </label>
-                        <input id="password" name="password" type="password" required
-                            autocomplete="new-password" placeholder="••••••••"
+                        <input id="password" name="password" type="password" required autocomplete="new-password"
+                            placeholder="••••••••"
                             class="w-full h-12 px-4 rounded-lg bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder:text-slate-400 @error('password') border-red-500 @enderror" />
                         @error('password')
                             <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -245,17 +248,18 @@
                     </div>
 
                     {{-- Confirm Password --}}
-                    <div>
-                        <label for="password_confirmation" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    {{-- <div>
+                        <label for="password_confirmation"
+                            class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                             Confirm Password
                         </label>
                         <input id="password_confirmation" name="password_confirmation" type="password" required
                             autocomplete="new-password" placeholder="••••••••"
                             class="w-full h-12 px-4 rounded-lg bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder:text-slate-400" />
-                    </div>
+                    </div> --}}
 
                     {{-- Terms --}}
-                    <div class="flex items-start gap-3">
+                    {{-- <div class="flex items-start gap-3">
                         <input id="terms" name="terms" type="checkbox" required
                             class="mt-1 h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary" />
                         <label for="terms" class="text-sm text-slate-500 dark:text-slate-400">
@@ -264,7 +268,7 @@
                             and
                             <a href="#" class="text-primary font-semibold hover:underline">Privacy Policy</a>
                         </label>
-                    </div>
+                    </div> --}}
 
                     {{-- Submit --}}
                     <button type="submit"
@@ -279,12 +283,15 @@
                 <div class="mt-8 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
                     <p class="text-slate-500 dark:text-slate-400 text-sm">
                         Already have an account?
-                        <a class="text-primary font-bold hover:underline" href="{{ route('login') }}">Sign in</a>
+                        <a class="text-primary font-bold hover:underline" href="{{ route('login.index') }}">Sign in</a>
                     </p>
                     <div class="flex justify-center gap-6 mt-6">
-                        <a class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300" href="#">Help Center</a>
-                        <a class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300" href="#">Terms of Service</a>
-                        <a class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300" href="#">Privacy Policy</a>
+                        <a class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                            href="#">Help Center</a>
+                        <a class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                            href="#">Terms of Service</a>
+                        <a class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                            href="#">Privacy Policy</a>
                     </div>
                 </div>
 
@@ -295,4 +302,5 @@
 
 
 </body>
+
 </html>

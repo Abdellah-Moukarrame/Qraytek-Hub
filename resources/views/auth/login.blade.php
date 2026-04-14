@@ -109,14 +109,7 @@
                         </svg>
                         <span>Continue with Google</span>
                     </a>
-                    <button
-                        class="flex w-full items-center justify-center gap-3 h-12 px-4 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors font-medium">
-                        <svg class="w-5 h-5 dark:fill-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M17.05 20.28c-.96.95-2.04 1.72-3.14 1.72-1.07 0-1.47-.64-2.75-.64-1.28 0-1.74.62-2.75.64-1.04.02-2.18-.78-3.14-1.72-2.17-2.14-2.68-5.59-1.12-7.79 1.11-1.57 2.89-2.5 4.54-2.5 1.25 0 2.22.62 3.03.62.77 0 1.96-.71 3.35-.71 1.04 0 2.41.44 3.34 1.48-2.67 1.55-2.22 5.32.44 6.55-.58 1.54-1.2 2.76-1.8 3.35zM12.03 7.25c-.02-2.16 1.79-4.04 3.97-4.25.21 2.25-1.92 4.17-3.97 4.25z" />
-                        </svg>
-                        <span>Continue with Apple</span>
-                    </button>
+
                 </div>
 
                 {{-- Divider --}}
@@ -128,7 +121,7 @@
                 </div>
 
                 {{-- Login Form --}}
-                <form method="POST" class="space-y-5">
+                <form method="POST" action="{{ route('login.create') }}" class="space-y-5">
                     @csrf
 
                     {{-- Email --}}

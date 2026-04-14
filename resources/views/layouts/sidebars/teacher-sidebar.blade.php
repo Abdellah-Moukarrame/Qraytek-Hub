@@ -78,12 +78,12 @@
                 <p class="text-sm font-semibold truncate">{{ auth()->user()->name ?? 'Teacher' }}</p>
                 <p class="text-xs text-slate-500 truncate">Independent Teacher</p>
             </div>
-            {{-- <form method="POST" action="{{ route('logout') }}">
+            <form method="POST" action="{{route('logout')}}" >
                 @csrf
                 <button type="submit" class="text-slate-400 hover:text-slate-600 transition-colors">
                     <span class="material-symbols-outlined text-xl">logout</span>
                 </button>
-            </form> --}}
+            </form>
         </div>
     </div>
 
