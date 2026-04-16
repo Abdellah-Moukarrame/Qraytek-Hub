@@ -3,10 +3,12 @@
 
     {{-- Logo --}}
     <div class="p-6 flex items-center gap-3">
-        <div class="size-10 bg-primary rounded-lg flex items-center justify-center text-white">
-            <span class="material-symbols-outlined text-2xl">school</span>
-        </div>
-        <h1 class="text-xl font-bold tracking-tight">EduMaster</h1>
+
+        <a href="" class="flex items-center gap-3">
+            <img src="https://i.ibb.co/p6Dst1hw/Chat-GPT-Image-Feb-19-2026-11-51-38-AM.png" alt="EduIndependent"
+                class="h-24 w-auto object-contain" style="max-height: none;">
+
+        </a>
     </div>
 
     {{-- Navigation Links --}}
