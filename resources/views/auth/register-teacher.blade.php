@@ -1,594 +1,522 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
-
+<html lang="en" class="light">
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Teacher Registration - EduPlatform</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register as Teacher — EduMaster</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#137fec",
-                        "accent-orange": "#f97316",
-                        "background-light": "#f6f7f8",
-                        "background-dark": "#101922",
-                    },
-                    fontFamily: {
-                        "display": ["Lexend"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                },
-            },
+    @vite('resources/css/app.css')
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-    </script>
+        body { font-family: 'Lexend', sans-serif; }
+
+        @keyframes float-up {
+            0%   { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-float   { animation: float-up 0.5s 0.0s ease both; }
+        .animate-float-1 { animation: float-up 0.5s 0.1s ease both; }
+        .animate-float-2 { animation: float-up 0.5s 0.2s ease both; }
+        .animate-float-3 { animation: float-up 0.5s 0.3s ease both; }
+        .animate-float-4 { animation: float-up 0.5s 0.4s ease both; }
+        .animate-float-5 { animation: float-up 0.5s 0.5s ease both; }
+        .animate-float-6 { animation: float-up 0.5s 0.6s ease both; }
+
+        /* Upload drop zone */
+        .upload-zone {
+            border: 2px dashed #cbd5e1;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .upload-zone:hover,
+        .upload-zone.dragover {
+            border-color: #137fec;
+            background-color: #eff6ff;
+        }
+        .dark .upload-zone:hover,
+        .dark .upload-zone.dragover {
+            background-color: #1e3a5f22;
+        }
+        .upload-zone.has-file {
+            border-color: #10b981;
+            background-color: #f0fdf4;
+        }
+        .dark .upload-zone.has-file {
+            background-color: #064e3b22;
+        }
+
+        /* Step indicator */
+        .step-line {
+            height: 2px;
+            background: #e2e8f0;
+            flex: 1;
+        }
+        .step-line.active {
+            background: #137fec;
+        }
+    </style>
 </head>
+<body class="min-h-screen bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
 
-<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen overflow-x-hidden">
+<div class="min-h-screen flex">
 
+    {{-- Left: Info Panel --}}
+    <div class="hidden lg:flex w-5/12 bg-primary relative overflow-hidden flex-col justify-between p-12">
 
-    <div class="flex min-h-screen w-full">
+        <div class="absolute -top-20 -left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
 
-        {{-- Left Side Panel --}}
-        <div class="hidden lg:flex lg:w-2/5 relative overflow-hidden bg-primary sticky top-0 h-screen">
-            <div class="absolute inset-0 z-10 bg-gradient-to-br from-primary/80 to-primary/40"></div>
-            <img alt="Teacher in a modern classroom setting" class="absolute inset-0 object-cover w-full h-full"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtd1Ncmcbgf1tdhZUBOT9oBPzW8QWb04QQ-P5dbpIQt6fYeaGggrMN-mSBHrcphtAzESB-rJCD6Xasn24k934q_o0i6swBEY_1KtBkEohKX37blut0I1NXSiImdK4umLO_NZWYqkUFfA0fgLtsv6fj6NPZYA-mcot0HljEvr-c0phd6seQeKCuIpUioEimY9tNZPUOEzrU5GDEmW2uUqDsmwUkG2usRPRjQZd3MmpJUG3D9EMmNi4TuJbu66Cug7Tnr_1fblKBIMk" />
-            <div class="relative z-20 flex flex-col justify-between p-14 text-white h-full">
+        {{-- Logo --}}
+        <div class="relative z-10 flex items-center gap-3">
+            <div class="size-10 bg-white/20 rounded-lg flex items-center justify-center text-white">
+                <span class="material-symbols-outlined">school</span>
+            </div>
+            <span class="text-xl font-bold text-white">EduMaster</span>
+        </div>
 
-                {{-- Logo --}}
-                <div class="flex items-center gap-3">
-                    <div class="p-2 bg-white/20 backdrop-blur-md rounded-lg">
-                        <span class="material-symbols-outlined text-white text-2xl">school</span>
+        {{-- Middle Content --}}
+        <div class="relative z-10 text-white">
+            <div class="size-16 bg-white/20 rounded-2xl flex items-center justify-center mb-8">
+                <span class="material-symbols-outlined text-4xl">verified_user</span>
+            </div>
+            <h2 class="text-4xl font-black mb-4 leading-tight">
+                Join as an<br/>Independent Teacher
+            </h2>
+            <p class="text-white/70 leading-relaxed mb-10 text-lg">
+                Submit your application and get verified by our admin team within 48 hours.
+            </p>
+
+            {{-- What happens next --}}
+            <div class="space-y-4">
+                @php
+                $steps = [
+                    ['icon' => 'edit_note',       'title' => 'Fill in your details',       'desc' => 'Personal info & teaching profile'],
+                    ['icon' => 'upload_file',      'title' => 'Upload your documents',      'desc' => 'CV, Degree, Certificate & ID'],
+                    ['icon' => 'admin_panel_settings', 'title' => 'Admin reviews your profile', 'desc' => 'Usually within 48 hours'],
+                    ['icon' => 'rocket_launch',    'title' => 'Start teaching!',             'desc' => 'Accept bookings & earn'],
+                ];
+                @endphp
+                @foreach($steps as $i => $step)
+                <div class="flex items-start gap-4">
+                    <div class="size-9 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="material-symbols-outlined text-white text-lg">{{ $step['icon'] }}</span>
                     </div>
-                    <img src="{{ asset('images/logo.png') }}" alt="EduIndependent" class="h-20 w-auto object-contain">
-                </div>
-
-                {{-- Main copy --}}
-                <div>
-                    <span class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full mb-6">
-                        <span class="material-symbols-outlined text-sm">verified</span>
-                        Teacher Account
-                    </span>
-                    <h1 class="text-4xl font-bold leading-tight mb-4">Grow your teaching business, your way.</h1>
-                    <p class="text-lg text-white/80 leading-relaxed mb-10">
-                        Everything you need to manage students, bookings, and payments — all in one place.
-                    </p>
-
-                    {{-- Steps progress --}}
-                    <div class="space-y-5">
-                        <div class="flex items-center gap-4" id="step-indicator-1">
-                            <div class="w-8 h-8 rounded-full bg-white text-primary flex items-center justify-center font-bold text-sm shrink-0 shadow-md">1</div>
-                            <div>
-                                <p class="font-semibold text-white text-sm">Personal Information</p>
-                                <p class="text-white/60 text-xs">Your name, email & contact</p>
-                            </div>
-                        </div>
-                        <div class="w-px h-5 bg-white/30 ml-4"></div>
-                        <div class="flex items-center gap-4" id="step-indicator-2">
-                            <div class="w-8 h-8 rounded-full bg-white/20 border border-white/40 text-white flex items-center justify-center font-bold text-sm shrink-0">2</div>
-                            <div>
-                                <p class="font-semibold text-white/60 text-sm">Teaching Profile</p>
-                                <p class="text-white/40 text-xs">Subjects, experience & bio</p>
-                            </div>
-                        </div>
-                        <div class="w-px h-5 bg-white/30 ml-4"></div>
-                        <div class="flex items-center gap-4" id="step-indicator-3">
-                            <div class="w-8 h-8 rounded-full bg-white/20 border border-white/40 text-white flex items-center justify-center font-bold text-sm shrink-0">3</div>
-                            <div>
-                                <p class="font-semibold text-white/60 text-sm">Account Security</p>
-                                <p class="text-white/40 text-xs">Password & confirmation</p>
-                            </div>
-                        </div>
+                    <div>
+                        <p class="text-sm font-bold text-white">{{ $step['title'] }}</p>
+                        <p class="text-xs text-white/60">{{ $step['desc'] }}</p>
                     </div>
                 </div>
-
-                {{-- Social proof --}}
-                <div class="flex gap-4 items-center">
-                    <div class="flex -space-x-3 overflow-hidden">
-                        <img alt="User" class="inline-block h-9 w-9 rounded-full ring-2 ring-primary"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmF8GWQvv15nOFlT1yzGBJKuo8noQD0kQr_USkkMAtJUC_VKtpQJeElPD50opuD3UQtS1pAm7ne3UXRWx_ZUxlaaGsbxnrDn95z6ozv_cCck966U5_hZbiMYgulS4EPjAoMO3rX5HkDQ3O20ObuHRSJ07TKVbMntFLZhB3fYzS3qsjIfW0Zb-YXG6P2b6RLO7EYzDmGv-GXb1Rv673tX4vdluUcNTn5OTCkVZyE6wpmRQf7Pgm_uBYWSRe_pGJfsrMqz0G39ia9cM" />
-                        <img alt="User" class="inline-block h-9 w-9 rounded-full ring-2 ring-primary"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlSGXpvQfW8wCxUorflrh7-USqN6MtsZeNPj5M8INPCf0-51KotaKyDgD2MdRzimTDwJajgXApB1W7bQ00v7KyrASiwbmxvv2N2VbYgm3Agaq4Q8aepro-6q3rEsldjqlr2wdHkKSY8v38s6zCqLV6sQTBbsj4wDYJPsmPVITy0MfAJehEQoimgRfBEafCKYU8BlHnO_WJmm1ZRg5ahNDh_9RhAyBrO-9_uSjrfyBOR05SZbhiTM3hrCjLjzNCeduQBB9Stk0S_iE" />
-                        <img alt="User" class="inline-block h-9 w-9 rounded-full ring-2 ring-primary"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjcBmQZo0I18WjGv4NCA7-yVWhziiyqvb_yKJsnCYB5upDUOhL2dOY72b_x9EmfBKNFe3aae1DUPTND5erglpbAdrW1k6xRMEshohB7hYeA0ujxSA9BuZJYTDOhVP4INVJFO1kBdLY21DieZswW7fRqlo9XVaGA0uFy55ruWtYh_BKZsY5ovgOOxU9X8I4L_9dWEUiKeGhpJ0uEvdy1axGMYtB9N0lgnLthjt46SrbF3PPS2-UJacz2U50N0lhWvXrgfprxTPN2wc" />
-                    </div>
-                    <p class="text-sm font-medium text-white/80">Joined by 10,000+ teachers this month</p>
-                </div>
-
+                @endforeach
             </div>
         </div>
 
-        {{-- Right Side: Multi-step Form --}}
-        <div class="w-full lg:w-3/5 bg-white dark:bg-background-dark flex flex-col justify-start px-8 sm:px-16 lg:px-16 xl:px-24 py-12 overflow-y-auto">
-            <div class="max-w-2xl w-full mx-auto">
+        {{-- Bottom --}}
+        <div class="relative z-10 text-white/60 text-xs">
+            © {{ date('Y') }} EduMaster. All rights reserved.
+        </div>
+    </div>
 
-                {{-- Mobile Logo --}}
-                <div class="flex lg:hidden items-center gap-2 mb-8">
-                    <span class="material-symbols-outlined text-primary text-3xl">school</span>
-                    <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">EduPlatform</span>
+    {{-- Right: Form --}}
+    <div class="flex-1 overflow-y-auto">
+        <div class="max-w-2xl mx-auto px-6 py-12">
+
+            {{-- Logo (mobile) --}}
+            <div class="animate-float flex items-center gap-3 mb-8 lg:hidden">
+                <div class="size-9 bg-primary rounded-lg flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined">school</span>
                 </div>
+                <span class="text-lg font-bold">EduMaster</span>
+            </div>
 
-                {{-- Mobile Step Indicator --}}
-                <div class="flex lg:hidden items-center justify-center gap-2 mb-8">
-                    <div class="flex items-center gap-2">
-                        <div class="step-dot w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs" data-step="1">1</div>
-                        <div class="h-px w-10 bg-slate-200 dark:bg-slate-700"></div>
-                        <div class="step-dot w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-500 flex items-center justify-center font-bold text-xs" data-step="2">2</div>
-                        <div class="h-px w-10 bg-slate-200 dark:bg-slate-700"></div>
-                        <div class="step-dot w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-500 flex items-center justify-center font-bold text-xs" data-step="3">3</div>
-                    </div>
+            {{-- Heading --}}
+            <div class="animate-float mb-8">
+                <h1 class="text-3xl font-black mb-2">Teacher Application</h1>
+                <p class="text-slate-500 dark:text-slate-400">
+                    Complete all fields and upload your documents to apply.
+                </p>
+            </div>
+
+            {{-- Errors --}}
+            @if($errors->any())
+            <div class="animate-float bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 rounded-xl p-4 mb-6 flex items-start gap-3">
+                <span class="material-symbols-outlined text-rose-500 flex-shrink-0">error</span>
+                <div>
+                    @foreach($errors->all() as $error)
+                    <p class="text-sm text-rose-600 dark:text-rose-400">{{ $error }}</p>
+                    @endforeach
                 </div>
+            </div>
+            @endif
 
-                {{-- Header --}}
-                <div class="mb-8">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="text-xs font-bold text-primary uppercase tracking-widest" id="step-label">Step 1 of 3</span>
-                    </div>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-1" id="step-title">Personal Information</h2>
-                    <p class="text-slate-500 dark:text-slate-400" id="step-subtitle">Tell us about yourself to get started.</p>
-                </div>
+            <form method="POST" action="{{ route('register.teacher.store') }}" enctype="multipart/form-data" class="space-y-8">
+                @csrf
 
-                {{-- Progress Bar --}}
-                <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full mb-10 overflow-hidden">
-                    <div class="h-full bg-primary rounded-full transition-all duration-500" id="progress-bar" style="width: 33%"></div>
-                </div>
-
-                <form method="POST" action="{{ route('register.teacher') }}" class="space-y-6" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="role" value="teacher" />
-
-                    {{-- ========== STEP 1: Personal Info ========== --}}
-                    <div id="step-1" class="step-section space-y-6">
-
-                        {{-- Avatar Upload --}}
-                        <div class="flex items-center gap-5">
-                            <div class="relative group">
-                                <div class="w-20 h-20 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-600 overflow-hidden" id="avatar-preview-wrapper">
-                                    <span class="material-symbols-outlined text-slate-400 text-3xl" id="avatar-placeholder">person</span>
-                                    <img id="avatar-preview" class="hidden w-full h-full object-cover" src="" alt="Preview" />
-                                </div>
-                                <label for="avatar" class="absolute -bottom-1 -right-1 w-7 h-7 bg-primary rounded-full flex items-center justify-center cursor-pointer shadow-md hover:bg-primary/90 transition">
-                                    <span class="material-symbols-outlined text-white text-sm">photo_camera</span>
-                                </label>
-                                <input type="file" id="avatar" name="avatar" accept="image/*" class="hidden" onchange="previewAvatar(event)" />
-                            </div>
-                            <div>
-                                <p class="font-semibold text-slate-900 dark:text-white text-sm">Profile Photo</p>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">JPG or PNG. Max 2MB. <br/>Helps students recognize you.</p>
-                            </div>
+                {{-- ─── SECTION 1: Personal Info ─── --}}
+                <div class="animate-float-1">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-lg">person</span>
                         </div>
-
-                        {{-- First & Last Name --}}
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label for="first_name" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">First Name</label>
-                                <input id="first_name" name="first_name" type="text" value="{{ old('first_name') }}" required
-                                    autocomplete="given-name" placeholder="John"
-                                    class="w-full h-12 px-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder:text-slate-400 @error('first_name') border-red-500 @enderror" />
-                                @error('first_name') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
-                            </div>
-                            <div>
-                                <label for="last_name" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Last Name</label>
-                                <input id="last_name" name="last_name" type="text" value="{{ old('last_name') }}" required
-                                    autocomplete="family-name" placeholder="Doe"
-                                    class="w-full h-12 px-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder:text-slate-400 @error('last_name') border-red-500 @enderror" />
-                                @error('last_name') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
-                            </div>
-                        </div>
-
-                        {{-- Email --}}
-                        <div>
-                            <label for="email" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
-                            <div class="relative">
-                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">mail</span>
-                                <input id="email" name="email" type="email" value="{{ old('email') }}" required
-                                    autocomplete="email" placeholder="name@example.com"
-                                    class="w-full h-12 pl-10 pr-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder:text-slate-400 @error('email') border-red-500 @enderror" />
-                            </div>
-                            @error('email') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
-                        </div>
-
-                        {{-- Phone --}}
-                        <div>
-                            <label for="phone" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Phone Number</label>
-                            <div class="relative">
-                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">phone</span>
-                                <input id="phone" name="phone" type="tel" value="{{ old('phone') }}"
-                                    autocomplete="tel" placeholder="+1 234 567 890"
-                                    class="w-full h-12 pl-10 pr-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder:text-slate-400 @error('phone') border-red-500 @enderror" />
-                            </div>
-                            @error('phone') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
-                        </div>
-
-                        {{-- City & Country --}}
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label for="city" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">City</label>
-                                <input id="city" name="city" type="text" value="{{ old('city') }}"
-                                    placeholder="e.g. Paris"
-                                    class="w-full h-12 px-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder:text-slate-400" />
-                            </div>
-                            <div>
-                                <label for="country" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Country</label>
-                                <select id="country" name="country"
-                                    class="w-full h-12 px-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white">
-                                    <option value="">Select country</option>
-                                    <option value="MA" {{ old('country') == 'MA' ? 'selected' : '' }}>Morocco</option>
-                                    <option value="FR" {{ old('country') == 'FR' ? 'selected' : '' }}>France</option>
-                                    <option value="US" {{ old('country') == 'US' ? 'selected' : '' }}>United States</option>
-                                    <option value="GB" {{ old('country') == 'GB' ? 'selected' : '' }}>United Kingdom</option>
-                                    <option value="DE" {{ old('country') == 'DE' ? 'selected' : '' }}>Germany</option>
-                                    <option value="ES" {{ old('country') == 'ES' ? 'selected' : '' }}>Spain</option>
-                                    <option value="NL" {{ old('country') == 'NL' ? 'selected' : '' }}>Netherlands</option>
-                                    <option value="OTHER" {{ old('country') == 'OTHER' ? 'selected' : '' }}>Other</option>
-                                </select>
-                            </div>
-                        </div>
-
+                        <h3 class="font-bold text-lg">Personal Information</h3>
                     </div>
 
-                    {{-- ========== STEP 2: Teaching Profile ========== --}}
-                    <div id="step-2" class="step-section space-y-6 hidden">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-4">
 
-                        {{-- Subjects --}}
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Subjects You Teach <span class="text-slate-400 font-normal">(select all that apply)</span></label>
-                            <div class="grid grid-cols-3 gap-2">
-                                @foreach(['Mathematics', 'Physics', 'Chemistry', 'Biology', 'English', 'French', 'Arabic', 'History', 'Geography', 'Computer Science', 'Art', 'Music'] as $subject)
-                                <label class="subject-tag cursor-pointer flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-400 hover:border-primary hover:text-primary hover:bg-primary/5 transition-all has-[:checked]:border-primary has-[:checked]:text-primary has-[:checked]:bg-primary/5">
-                                    <input type="checkbox" name="subjects[]" value="{{ $subject }}" class="hidden" {{ in_array($subject, old('subjects', [])) ? 'checked' : '' }} />
-                                    {{ $subject }}
-                                </label>
-                                @endforeach
-                            </div>
-                        </div>
-
-                        {{-- Teaching Level --}}
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Teaching Level</label>
-                            <div class="grid grid-cols-2 gap-3">
-                                @foreach(['Primary School', 'Middle School', 'High School', 'University', 'Adult Learning', 'All Levels'] as $level)
-                                <label class="cursor-pointer flex items-center gap-3 p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-                                    <input type="radio" name="teaching_level" value="{{ $level }}" class="text-primary" {{ old('teaching_level') == $level ? 'checked' : '' }} />
-                                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{{ $level }}</span>
-                                </label>
-                                @endforeach
-                            </div>
-                        </div>
-
-                        {{-- Experience & Hourly Rate --}}
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="experience_years" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Years of Experience</label>
-                                <select id="experience_years" name="experience_years"
-                                    class="w-full h-12 px-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white">
-                                    <option value="">Select</option>
-                                    <option value="0-1">Less than 1 year</option>
-                                    <option value="1-3">1 – 3 years</option>
-                                    <option value="3-5">3 – 5 years</option>
-                                    <option value="5-10">5 – 10 years</option>
-                                    <option value="10+">10+ years</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="hourly_rate" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Hourly Rate (USD)</label>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Full Name</label>
                                 <div class="relative">
-                                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-semibold text-sm">$</span>
-                                    <input id="hourly_rate" name="hourly_rate" type="number" min="0" value="{{ old('hourly_rate') }}"
-                                        placeholder="25"
-                                        class="w-full h-12 pl-7 pr-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder:text-slate-400" />
+                                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">badge</span>
+                                    <input type="text" name="name" value="{{ old('name') }}" placeholder="Your full name" required
+                                        class="w-full bg-slate-100 dark:bg-slate-700 border-2 border-transparent rounded-xl py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-primary transition-all @error('name') border-rose-400 @enderror" />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
+                                <div class="relative">
+                                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">mail</span>
+                                    <input type="email" name="email" value="{{ old('email') }}" placeholder="your@email.com" required
+                                        class="w-full bg-slate-100 dark:bg-slate-700 border-2 border-transparent rounded-xl py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-primary transition-all @error('email') border-rose-400 @enderror" />
                                 </div>
                             </div>
                         </div>
 
-                        {{-- Teaching Mode --}}
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Teaching Mode</label>
-                            <div class="grid grid-cols-3 gap-3">
-                                @foreach(['Online' => 'videocam', 'In-Person' => 'location_on', 'Both' => 'swap_horiz'] as $mode => $icon)
-                                <label class="cursor-pointer flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5 text-center">
-                                    <input type="radio" name="teaching_mode" value="{{ $mode }}" class="hidden" {{ old('teaching_mode') == $mode ? 'checked' : '' }} />
-                                    <span class="material-symbols-outlined text-slate-400 text-2xl group-has-[:checked]:text-primary">{{ $icon }}</span>
-                                    <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">{{ $mode }}</span>
-                                </label>
-                                @endforeach
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Phone Number</label>
+                                <div class="relative">
+                                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">phone</span>
+                                    <input type="tel" name="phone" value="{{ old('phone') }}" placeholder="+212 6XX XXX XXX"
+                                        class="w-full bg-slate-100 dark:bg-slate-700 border-2 border-transparent rounded-xl py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-primary transition-all" />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">City</label>
+                                <div class="relative">
+                                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">location_on</span>
+                                    <input type="text" name="city" value="{{ old('city') }}" placeholder="Casablanca"
+                                        class="w-full bg-slate-100 dark:bg-slate-700 border-2 border-transparent rounded-xl py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-primary transition-all" />
+                                </div>
                             </div>
                         </div>
 
-                        {{-- Bio --}}
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Password</label>
+                                <div class="relative">
+                                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">lock</span>
+                                    <input type="password" name="password" id="password" placeholder="Min. 8 characters" required
+                                        class="w-full bg-slate-100 dark:bg-slate-700 border-2 border-transparent rounded-xl py-2.5 pl-10 pr-10 text-sm focus:outline-none focus:border-primary transition-all @error('password') border-rose-400 @enderror" />
+                                    <button type="button" onclick="togglePwd('password','eye1')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+                                        <span class="material-symbols-outlined text-lg" id="eye1">visibility</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Confirm Password</label>
+                                <div class="relative">
+                                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">lock_clock</span>
+                                    <input type="password" name="password_confirmation" placeholder="Confirm password" required
+                                        class="w-full bg-slate-100 dark:bg-slate-700 border-2 border-transparent rounded-xl py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-primary transition-all" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- ─── SECTION 2: Teaching Profile ─── --}}
+                <div class="animate-float-2">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="size-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-lg">menu_book</span>
+                        </div>
+                        <h3 class="font-bold text-lg">Teaching Profile</h3>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-4">
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Subject / Specialization</label>
+                                <div class="relative">
+                                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">science</span>
+                                    <input type="text" name="subject" value="{{ old('subject') }}" placeholder="e.g. Physics, Mathematics..." required
+                                        class="w-full bg-slate-100 dark:bg-slate-700 border-2 border-transparent rounded-xl py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-primary transition-all @error('subject') border-rose-400 @enderror" />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Years of Experience</label>
+                                <div class="relative">
+                                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">work_history</span>
+                                    <input type="number" name="experience" value="{{ old('experience') }}" placeholder="e.g. 5" min="0" max="50" required
+                                        class="w-full bg-slate-100 dark:bg-slate-700 border-2 border-transparent rounded-xl py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-primary transition-all @error('experience') border-rose-400 @enderror" />
+                                </div>
+                            </div>
+                        </div>
+
                         <div>
-                            <label for="bio" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                                Short Bio
-                                <span class="text-slate-400 font-normal">(max 300 characters)</span>
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Hourly Rate ($/hr)</label>
+                            <div class="relative max-w-xs">
+                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">payments</span>
+                                <input type="number" name="rate" value="{{ old('rate') }}" placeholder="e.g. 45" min="0" step="0.01"
+                                    class="w-full bg-slate-100 dark:bg-slate-700 border-2 border-transparent rounded-xl py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-primary transition-all" />
+                            </div>
+                            <p class="text-xs text-slate-400 mt-1">You can update this anytime from your profile.</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Bio / About You</label>
+                            <textarea name="bio" rows="3" placeholder="Tell students about your teaching experience, methodology and passion..."
+                                class="w-full bg-slate-100 dark:bg-slate-700 border-2 border-transparent rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:border-primary transition-all resize-none">{{ old('bio') }}</textarea>
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- ─── SECTION 3: Documents ─── --}}
+                <div class="animate-float-3">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="size-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-lg">upload_file</span>
+                        </div>
+                        <h3 class="font-bold text-lg">Required Documents</h3>
+                    </div>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-5 ml-11">
+                        Upload clear scans or photos. Accepted formats: PDF, JPG, PNG — max 5MB each.
+                    </p>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                        {{-- CV --}}
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary text-base">description</span>
+                                Curriculum Vitae (CV)
+                                <span class="text-rose-500">*</span>
                             </label>
-                            <textarea id="bio" name="bio" rows="4" maxlength="300" placeholder="Tell students about your teaching style, background and approach..."
-                                class="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder:text-slate-400 resize-none @error('bio') border-red-500 @enderror">{{ old('bio') }}</textarea>
-                            <p class="text-xs text-slate-400 mt-1 text-right"><span id="bio-count">0</span>/300</p>
-                            @error('bio') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                            <div class="upload-zone rounded-xl p-5 text-center transition-all" id="zone-cv"
+                                ondragover="handleDragOver(event, 'zone-cv')"
+                                ondragleave="handleDragLeave('zone-cv')"
+                                ondrop="handleDrop(event, 'cv_path', 'zone-cv', 'preview-cv')"
+                                onclick="document.getElementById('cv_path').click()">
+                                <div id="preview-cv">
+                                    <span class="material-symbols-outlined text-3xl text-slate-300 mb-2 block">upload_file</span>
+                                    <p class="text-sm font-semibold text-slate-500">Click or drag to upload</p>
+                                    <p class="text-xs text-slate-400 mt-1">PDF, JPG, PNG — max 5MB</p>
+                                </div>
+                            </div>
+                            <input type="file" id="cv_path" name="cv_path" accept=".pdf,.jpg,.jpeg,.png" class="hidden"
+                                onchange="handleFileSelect(this, 'zone-cv', 'preview-cv')" required />
+                            @error('cv_path')
+                                <p class="text-xs text-rose-500 mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- Teaching Certificate --}}
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-indigo-500 text-base">workspace_premium</span>
+                                Teaching Certificate
+                                <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="upload-zone rounded-xl p-5 text-center transition-all" id="zone-certificate"
+                                ondragover="handleDragOver(event, 'zone-certificate')"
+                                ondragleave="handleDragLeave('zone-certificate')"
+                                ondrop="handleDrop(event, 'certificate_path', 'zone-certificate', 'preview-certificate')"
+                                onclick="document.getElementById('certificate_path').click()">
+                                <div id="preview-certificate">
+                                    <span class="material-symbols-outlined text-3xl text-slate-300 mb-2 block">workspace_premium</span>
+                                    <p class="text-sm font-semibold text-slate-500">Click or drag to upload</p>
+                                    <p class="text-xs text-slate-400 mt-1">PDF, JPG, PNG — max 5MB</p>
+                                </div>
+                            </div>
+                            <input type="file" id="certificate_path" name="certificate_path" accept=".pdf,.jpg,.jpeg,.png" class="hidden"
+                                onchange="handleFileSelect(this, 'zone-certificate', 'preview-certificate')" required />
+                            @error('certificate_path')
+                                <p class="text-xs text-rose-500 mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- University Degree --}}
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-emerald-500 text-base">school</span>
+                                University Degree
+                                <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="upload-zone rounded-xl p-5 text-center transition-all" id="zone-diploma"
+                                ondragover="handleDragOver(event, 'zone-diploma')"
+                                ondragleave="handleDragLeave('zone-diploma')"
+                                ondrop="handleDrop(event, 'diploma_path', 'zone-diploma', 'preview-diploma')"
+                                onclick="document.getElementById('diploma_path').click()">
+                                <div id="preview-diploma">
+                                    <span class="material-symbols-outlined text-3xl text-slate-300 mb-2 block">school</span>
+                                    <p class="text-sm font-semibold text-slate-500">Click or drag to upload</p>
+                                    <p class="text-xs text-slate-400 mt-1">PDF, JPG, PNG — max 5MB</p>
+                                </div>
+                            </div>
+                            <input type="file" id="diploma_path" name="diploma_path" accept=".pdf,.jpg,.jpeg,.png" class="hidden"
+                                onchange="handleFileSelect(this, 'zone-diploma', 'preview-diploma')" required />
+                            @error('diploma_path')
+                                <p class="text-xs text-rose-500 mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- ID Card --}}
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-rose-500 text-base">badge</span>
+                                National ID Card
+                                <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="upload-zone rounded-xl p-5 text-center transition-all" id="zone-id"
+                                ondragover="handleDragOver(event, 'zone-id')"
+                                ondragleave="handleDragLeave('zone-id')"
+                                ondrop="handleDrop(event, 'id_card_path', 'zone-id', 'preview-id')"
+                                onclick="document.getElementById('id_card_path').click()">
+                                <div id="preview-id">
+                                    <span class="material-symbols-outlined text-3xl text-slate-300 mb-2 block">badge</span>
+                                    <p class="text-sm font-semibold text-slate-500">Click or drag to upload</p>
+                                    <p class="text-xs text-slate-400 mt-1">PDF, JPG, PNG — max 5MB</p>
+                                </div>
+                            </div>
+                            <input type="file" id="id_card_path" name="id_card_path" accept=".pdf,.jpg,.jpeg,.png" class="hidden"
+                                onchange="handleFileSelect(this, 'zone-id', 'preview-id')" required />
+                            @error('id_card_path')
+                                <p class="text-xs text-rose-500 mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                     </div>
 
-                    {{-- ========== STEP 3: Account Security ========== --}}
-                    <div id="step-3" class="step-section space-y-6 hidden">
+                    {{-- Upload notice --}}
+                    <div class="mt-3 flex items-start gap-2 px-1">
+                        <span class="material-symbols-outlined text-amber-500 text-base flex-shrink-0 mt-0.5">info</span>
+                        <p class="text-xs text-slate-500">
+                            Your documents are used only for identity and qualification verification. They are stored securely and never shared with third parties.
+                        </p>
+                    </div>
+                </div>
 
-                        {{-- Password --}}
-                        <div>
-                            <label for="password" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Password</label>
-                            <div class="relative">
-                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">lock</span>
-                                <input id="password" name="password" type="password" required
-                                    autocomplete="new-password" placeholder="••••••••"
-                                    class="w-full h-12 pl-10 pr-12 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder:text-slate-400 @error('password') border-red-500 @enderror"
-                                    oninput="checkStrength(this.value)" />
-                                <button type="button" onclick="togglePassword('password', 'eye-password')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
-                                    <span class="material-symbols-outlined text-xl" id="eye-password">visibility</span>
-                                </button>
-                            </div>
-                            {{-- Strength Bar --}}
-                            <div class="mt-2 flex gap-1">
-                                <div class="h-1 flex-1 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden"><div class="h-full rounded-full transition-all duration-300" id="strength-1"></div></div>
-                                <div class="h-1 flex-1 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden"><div class="h-full rounded-full transition-all duration-300" id="strength-2"></div></div>
-                                <div class="h-1 flex-1 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden"><div class="h-full rounded-full transition-all duration-300" id="strength-3"></div></div>
-                                <div class="h-1 flex-1 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden"><div class="h-full rounded-full transition-all duration-300" id="strength-4"></div></div>
-                            </div>
-                            <p class="text-xs text-slate-400 mt-1" id="strength-label">Use 8+ characters with letters, numbers & symbols</p>
-                            @error('password') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
-                        </div>
-
-                        {{-- Confirm Password --}}
-                        <div>
-                            <label for="password_confirmation" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Confirm Password</label>
-                            <div class="relative">
-                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">lock_reset</span>
-                                <input id="password_confirmation" name="password_confirmation" type="password" required
-                                    autocomplete="new-password" placeholder="••••••••"
-                                    class="w-full h-12 pl-10 pr-12 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder:text-slate-400" />
-                                <button type="button" onclick="togglePassword('password_confirmation', 'eye-confirm')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
-                                    <span class="material-symbols-outlined text-xl" id="eye-confirm">visibility</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        {{-- Summary Card --}}
-                        <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-xl p-5 space-y-3">
-                            <p class="text-sm font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
-                                <span class="material-symbols-outlined text-primary text-lg">fact_check</span>
-                                Account Summary
-                            </p>
-                            <div class="grid grid-cols-2 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
-                                <span class="font-medium text-slate-700 dark:text-slate-300">Role</span>
-                                <span>Teacher</span>
-                                <span class="font-medium text-slate-700 dark:text-slate-300">Name</span>
-                                <span id="summary-name">—</span>
-                                <span class="font-medium text-slate-700 dark:text-slate-300">Email</span>
-                                <span id="summary-email">—</span>
-                                <span class="font-medium text-slate-700 dark:text-slate-300">Experience</span>
-                                <span id="summary-experience">—</span>
-                            </div>
-                        </div>
-
-                        {{-- Terms --}}
-                        <div class="flex items-start gap-3">
-                            <input id="terms" name="terms" type="checkbox" required
-                                class="mt-1 h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary" />
-                            <label for="terms" class="text-sm text-slate-500 dark:text-slate-400">
+                {{-- ─── SECTION 4: Terms ─── --}}
+                <div class="animate-float-4">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 space-y-3">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" name="terms" required
+                                class="mt-1 size-4 rounded border-slate-300 text-primary focus:ring-primary" />
+                            <span class="text-sm text-slate-600 dark:text-slate-400">
                                 I agree to the
                                 <a href="#" class="text-primary font-semibold hover:underline">Terms of Service</a>
                                 and
                                 <a href="#" class="text-primary font-semibold hover:underline">Privacy Policy</a>.
-                                I understand my profile will be reviewed before going live.
-                            </label>
-                        </div>
-
-                    </div>
-
-                    {{-- Navigation Buttons --}}
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
-                        <button type="button" id="btn-back" onclick="prevStep()" class="hidden flex items-center gap-2 px-5 h-11 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
-                            <span class="material-symbols-outlined text-lg">arrow_back</span>
-                            Back
-                        </button>
-                        <div id="btn-back-placeholder"></div>
-
-                        <button type="button" id="btn-next" onclick="nextStep()"
-                            class="flex items-center gap-2 px-7 h-11 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg shadow-lg shadow-primary/20 transition-all">
-                            <span>Continue</span>
-                            <span class="material-symbols-outlined text-lg">arrow_forward</span>
-                        </button>
-
-                        <button type="submit" id="btn-submit" class="hidden flex items-center gap-2 px-7 h-11 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg shadow-lg shadow-primary/20 transition-all">
-                            <span>Create Teacher Account</span>
-                            <span class="material-symbols-outlined text-lg">check_circle</span>
-                        </button>
-                    </div>
-
-                </form>
-
-                {{-- Footer --}}
-                <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
-                    <p class="text-slate-500 dark:text-slate-400 text-sm">
-                        Already have an account?
-                        <a class="text-primary font-bold hover:underline" href="{{ route('login') }}">Sign in</a>
-                        &nbsp;·&nbsp;
-                        <a class="text-primary font-bold hover:underline" href="{{ route('register') }}">Register as Student</a>
-                    </p>
-                    <div class="flex justify-center gap-6 mt-4">
-                        <a class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300" href="#">Help Center</a>
-                        <a class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300" href="#">Terms of Service</a>
-                        <a class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300" href="#">Privacy Policy</a>
+                                I confirm that all documents submitted are authentic.
+                            </span>
+                        </label>
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" name="accuracy" required
+                                class="mt-1 size-4 rounded border-slate-300 text-primary focus:ring-primary" />
+                            <span class="text-sm text-slate-600 dark:text-slate-400">
+                                I certify that the information provided is accurate and complete.
+                                Submitting false documents may result in permanent account suspension.
+                            </span>
+                        </label>
                     </div>
                 </div>
 
-            </div>
-        </div>
+                {{-- Submit --}}
+                <div class="animate-float-5">
+                    <button type="submit"
+                        class="w-full py-4 bg-primary text-white font-bold rounded-2xl hover:bg-primary/90 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-3 shadow-lg shadow-primary/20 text-base">
+                        <span class="material-symbols-outlined">send</span>
+                        Submit Application
+                    </button>
+                    <p class="text-center text-xs text-slate-400 mt-3">
+                        Your application will be reviewed within 48 hours.
+                        You'll receive an email once approved.
+                    </p>
+                </div>
 
+                {{-- Login link --}}
+                <div class="animate-float-6 text-center pb-4">
+                    <p class="text-sm text-slate-500">
+                        Already have an account?
+                        <a href="{{ route('login.index') }}" class="text-primary font-bold hover:underline">Sign In</a>
+                    </p>
+                </div>
+
+            </form>
+        </div>
     </div>
 
-    <script>
-        let currentStep = 1;
-        const totalSteps = 3;
+</div>
 
-        const stepTitles = {
-            1: { label: 'Step 1 of 3', title: 'Personal Information', subtitle: 'Tell us about yourself to get started.' },
-            2: { label: 'Step 2 of 3', title: 'Teaching Profile', subtitle: 'Share your expertise and teaching style.' },
-            3: { label: 'Step 3 of 3', title: 'Account Security', subtitle: 'Create a secure password for your account.' },
-        };
+<script>
+function togglePwd(id, eyeId) {
+    const input = document.getElementById(id);
+    const eye   = document.getElementById(eyeId);
+    input.type  = input.type === 'password' ? 'text' : 'password';
+    eye.textContent = input.type === 'password' ? 'visibility' : 'visibility_off';
+}
 
-        function goToStep(step) {
-            document.querySelectorAll('.step-section').forEach(s => s.classList.add('hidden'));
-            document.getElementById('step-' + step).classList.remove('hidden');
+function handleFileSelect(input, zoneId, previewId) {
+    if (input.files && input.files[0]) {
+        showFilePreview(input.files[0], zoneId, previewId);
+    }
+}
 
-            const info = stepTitles[step];
-            document.getElementById('step-label').textContent = info.label;
-            document.getElementById('step-title').textContent = info.title;
-            document.getElementById('step-subtitle').textContent = info.subtitle;
-            document.getElementById('progress-bar').style.width = (step / totalSteps * 100) + '%';
+function handleDragOver(e, zoneId) {
+    e.preventDefault();
+    document.getElementById(zoneId).classList.add('dragover');
+}
 
-            // Mobile dots
-            document.querySelectorAll('.step-dot').forEach(dot => {
-                const s = parseInt(dot.dataset.step);
-                if (s < step) {
-                    dot.className = dot.className.replace(/bg-\S+/g, '').replace(/text-\S+/g, '');
-                    dot.classList.add('bg-primary', 'text-white');
-                    dot.innerHTML = '<span class="material-symbols-outlined text-xs">check</span>';
-                } else if (s === step) {
-                    dot.className = dot.className.replace(/bg-\S+/g, '').replace(/text-\S+/g, '');
-                    dot.classList.add('bg-primary', 'text-white');
-                    dot.textContent = s;
-                } else {
-                    dot.className = dot.className.replace(/bg-\S+/g, '').replace(/text-\S+/g, '');
-                    dot.classList.add('bg-slate-200', 'dark:bg-slate-700', 'text-slate-500');
-                    dot.textContent = s;
-                }
-            });
+function handleDragLeave(zoneId) {
+    document.getElementById(zoneId).classList.remove('dragover');
+}
 
-            // Left panel steps
-            for (let i = 1; i <= 3; i++) {
-                const ind = document.getElementById('step-indicator-' + i);
-                if (!ind) continue;
-                const circle = ind.querySelector('div');
-                const texts = ind.querySelectorAll('p');
-                if (i < step) {
-                    circle.className = 'w-8 h-8 rounded-full bg-white text-primary flex items-center justify-center font-bold text-sm shrink-0 shadow-md';
-                    circle.innerHTML = '<span class="material-symbols-outlined text-sm">check</span>';
-                } else if (i === step) {
-                    circle.className = 'w-8 h-8 rounded-full bg-white text-primary flex items-center justify-center font-bold text-sm shrink-0 shadow-md';
-                    circle.textContent = i;
-                    texts[0].className = 'font-semibold text-white text-sm';
-                    texts[1].className = 'text-white/60 text-xs';
-                } else {
-                    circle.className = 'w-8 h-8 rounded-full bg-white/20 border border-white/40 text-white flex items-center justify-center font-bold text-sm shrink-0';
-                    circle.textContent = i;
-                    texts[0].className = 'font-semibold text-white/60 text-sm';
-                    texts[1].className = 'text-white/40 text-xs';
-                }
-            }
+function handleDrop(e, inputId, zoneId, previewId) {
+    e.preventDefault();
+    const zone  = document.getElementById(zoneId);
+    zone.classList.remove('dragover');
+    const file  = e.dataTransfer.files[0];
+    if (!file) return;
 
-            // Back button
-            document.getElementById('btn-back').classList.toggle('hidden', step === 1);
-            document.getElementById('btn-back-placeholder').classList.toggle('hidden', step !== 1);
-            document.getElementById('btn-next').classList.toggle('hidden', step === totalSteps);
-            document.getElementById('btn-submit').classList.toggle('hidden', step !== totalSteps);
+    // Attach to input
+    const input = document.getElementById(inputId);
+    const dt    = new DataTransfer();
+    dt.items.add(file);
+    input.files = dt.files;
 
-            // Update summary on step 3
-            if (step === 3) updateSummary();
-        }
+    showFilePreview(file, zoneId, previewId);
+}
 
-        function nextStep() {
-            if (currentStep < totalSteps) {
-                currentStep++;
-                goToStep(currentStep);
-            }
-        }
+function showFilePreview(file, zoneId, previewId) {
+    const zone    = document.getElementById(zoneId);
+    const preview = document.getElementById(previewId);
+    const sizeMB  = (file.size / 1024 / 1024).toFixed(2);
+    const isImage = file.type.startsWith('image/');
+    const icon    = file.type === 'application/pdf' ? 'picture_as_pdf' : 'image';
 
-        function prevStep() {
-            if (currentStep > 1) {
-                currentStep--;
-                goToStep(currentStep);
-            }
-        }
+    zone.classList.add('has-file');
+    zone.classList.remove('dragover');
 
-        function updateSummary() {
-            const fn = document.getElementById('first_name').value;
-            const ln = document.getElementById('last_name').value;
-            const email = document.getElementById('email').value;
-            const exp = document.getElementById('experience_years').value;
-            document.getElementById('summary-name').textContent = [fn, ln].filter(Boolean).join(' ') || '—';
-            document.getElementById('summary-email').textContent = email || '—';
-            document.getElementById('summary-experience').textContent = exp || '—';
-        }
-
-        function previewAvatar(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = e => {
-                document.getElementById('avatar-placeholder').classList.add('hidden');
-                const img = document.getElementById('avatar-preview');
-                img.src = e.target.result;
-                img.classList.remove('hidden');
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function togglePassword(inputId, iconId) {
-            const input = document.getElementById(inputId);
-            const icon = document.getElementById(iconId);
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.textContent = 'visibility_off';
-            } else {
-                input.type = 'password';
-                icon.textContent = 'visibility';
-            }
-        }
-
-        function checkStrength(value) {
-            let score = 0;
-            if (value.length >= 8) score++;
-            if (/[A-Z]/.test(value)) score++;
-            if (/[0-9]/.test(value)) score++;
-            if (/[^A-Za-z0-9]/.test(value)) score++;
-
-            const colors = ['', 'bg-red-400', 'bg-yellow-400', 'bg-blue-400', 'bg-green-500'];
-            const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
-            for (let i = 1; i <= 4; i++) {
-                const bar = document.getElementById('strength-' + i);
-                bar.className = 'h-full rounded-full transition-all duration-300 ' + (i <= score ? colors[score] : '');
-            }
-            document.getElementById('strength-label').textContent = score > 0 ? 'Password strength: ' + labels[score] : 'Use 8+ characters with letters, numbers & symbols';
-        }
-
-        // Bio character count
-        document.getElementById('bio').addEventListener('input', function () {
-            document.getElementById('bio-count').textContent = this.value.length;
-        });
-
-        // Subject tag toggle visual
-        document.querySelectorAll('.subject-tag input').forEach(cb => {
-            cb.addEventListener('change', () => {
-                cb.closest('label').classList.toggle('border-primary', cb.checked);
-                cb.closest('label').classList.toggle('text-primary', cb.checked);
-                cb.closest('label').classList.toggle('bg-primary/5', cb.checked);
-            });
-        });
-
-        // Init
-        goToStep(1);
-    </script>
+    preview.innerHTML = `
+        <div class="flex items-center gap-3 text-left">
+            <div class="size-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined">${icon}</span>
+            </div>
+            <div class="flex-1 min-w-0">
+                <p class="text-sm font-bold text-emerald-700 dark:text-emerald-400 truncate">${file.name}</p>
+                <p class="text-xs text-slate-400">${sizeMB} MB</p>
+            </div>
+            <span class="material-symbols-outlined text-emerald-500">check_circle</span>
+        </div>
+    `;
+}
+</script>
 
 </body>
 </html>
