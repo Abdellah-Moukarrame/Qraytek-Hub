@@ -155,7 +155,7 @@
             @endif
 
             {{-- Form --}}
-            <form method="POST" action="{{ route('password.email') }}" class="space-y-5">
+            <form method="POST" action="{{ route('password.reset') }}" class="space-y-5">
                 @csrf
 
                 {{-- Email --}}
@@ -168,7 +168,6 @@
                         <input
                             type="email"
                             name="email"
-                            value="{{ old('email') }}"
                             placeholder="your@email.com"
                             required
                             autofocus
@@ -191,7 +190,7 @@
 
             {{-- Back to login --}}
             <div class="animate-float-delay-4 mt-8 text-center">
-                <a href="{{ route('login') }}"
+                <a href="{{ route('login.index') }}"
                     class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary transition-colors font-medium">
                     <span class="material-symbols-outlined text-base">arrow_back</span>
                     Back to Sign In
