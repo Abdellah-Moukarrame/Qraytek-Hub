@@ -144,7 +144,7 @@
                                 Password
                             </label>
 
-                            <a class="text-xs font-semibold text-primary hover:underline" href="">
+                            <a class="text-xs font-semibold text-primary hover:underline" href="{{route('forgetpass')}}">
                                 Forgot password?
                             </a>
 
