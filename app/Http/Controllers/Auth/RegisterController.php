@@ -22,6 +22,6 @@ class RegisterController extends Controller
             'role'=>'student',
         ]);
 
-        return redirect()->route("login.index");
+        return redirect()->route("login");
     }
 }
