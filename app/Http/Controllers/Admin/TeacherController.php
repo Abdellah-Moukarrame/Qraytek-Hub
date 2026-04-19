@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Personne\Teacher;
 
 class TeacherController extends Controller
 {
@@ -16,14 +17,20 @@ class TeacherController extends Controller
         return view('admin.teachers.show');
     }
 
-    public function approve($teacher)
+    public function approve($id)
     {
-        // logic later
+        $teacher = Teacher::findOrFail($id);
+        $teacher->update([
+            'status'=>'approved'
+        ])->save();
     }
 
-    public function reject($teacher)
+    public function reject($id)
     {
-        // logic later
+        $teacher = Teacher::findOrFail($id);
+        $teacher->update([
+            'status'=>'pending'
+        ])->save();
     }
 
     public function destroy($teacher)
