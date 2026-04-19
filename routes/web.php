@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\TeacherRegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\StudentMiddleware;
@@ -11,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\TeacherController as AdminTeacher;
 use App\Http\Controllers\Admin\UserController as AdminUser;
-
+use App\Http\Controllers\Auth\ForgetPassController;
+use App\Http\Controllers\Auth\ResetPassController;
 // Teacher Controllers
 use App\Http\Controllers\Teacher\DashboardController as TeacherDashboard;
 use App\Http\Controllers\Teacher\CourseController as TeacherCourse;
@@ -26,15 +28,25 @@ use App\Http\Controllers\Student\BookingController as StudentBooking;
 use App\Http\Controllers\Student\TeacherController as StudentTeacher;
 use App\Http\Controllers\Student\ProgressController as StudentProgress;
 use App\Http\Controllers\Student\MessageController as StudentMessage;
-
+use App\Http\Middleware\TeacherMiddleware;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/login', [LoginController::class, 'index'])->name('login.index');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.create');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
-Route::get('/register/teacher', [RegisterController::class, 'index'])->name('register.teacher');
+
+// Route::get('/register/teacher', [RegisterController::class, 'index'])->name('register.teacher');
+Route::get('/register/teacher', [TeacherRegisterController::class, 'showForm'])->name('register.teacher');
+Route::post('/register/teacher', [TeacherRegisterController::class, 'store'])->name('register.teacher.store');
+// Forget password
+Route::get('/forgot-password', [ForgetPassController::class, 'index'])->name('forgetpass');
+Route::post('/forgot-password', [ForgetPassController::class, 'resetpass'])->name('password.email');
+
+// Reset password (the link from email)
+Route::get('/reset-password/{token}', [ResetPassController::class, 'index'])->name('password.reset');
+Route::post('/reset-password', [ResetPassController::class, 'update'])->name('password.update');
 /// Socialite Auth
 Route::controller(GoogleController::class)->group(function () {
     Route::get('/auth/callback/{provider}', 'callback')->name('google.callback');
@@ -59,7 +71,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', AdminMiddleware::cla
 });
 
 // ─── Teacher ──────────────────────────────────────────
-Route::prefix('teacher')->name('teacher.')->group(function () {
+Route::prefix('teacher')->name('teacher.')->middleware(['auth',TeacherMiddleware::class])->group(function () {
     Route::get('/dashboard', [TeacherDashboard::class, 'index'])->name('dashboard');
 
     Route::get('/courses', [TeacherCourse::class, 'index'])->name('courses.index');
