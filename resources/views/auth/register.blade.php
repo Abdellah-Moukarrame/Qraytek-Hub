@@ -283,7 +283,7 @@
                 <div class="mt-8 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
                     <p class="text-slate-500 dark:text-slate-400 text-sm">
                         Already have an account?
-                        <a class="text-primary font-bold hover:underline" href="{{ route('login.index') }}">Sign in</a>
+                        <a class="text-primary font-bold hover:underline" href="{{ route('login') }}">Sign in</a>
                     </p>
                     <div class="flex justify-center gap-6 mt-6">
                         <a class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"

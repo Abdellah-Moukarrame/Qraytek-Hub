@@ -444,7 +444,7 @@
                 <div class="animate-float-6 text-center pb-4">
                     <p class="text-sm text-slate-500">
                         Already have an account?
-                        <a href="{{ route('login.index') }}" class="text-primary font-bold hover:underline">Sign In</a>
+                        <a href="{{ route('login') }}" class="text-primary font-bold hover:underline">Sign In</a>
                     </p>
                 </div>
 

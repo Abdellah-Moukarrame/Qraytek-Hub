@@ -49,7 +49,7 @@
                     business with integrated booking and payments.
                 </p>
                 <div class="flex flex-wrap gap-4 pt-4">
-                    <a href="{{ route('login.index') }}"
+                    <a href="{{ route('login') }}"
                         class="px-8 py-4 bg-primary text-white font-bold rounded-xl hover:scale-[1.02] transition-transform flex items-center gap-2">
                         Start Learning Now
                         <span class="material-symbols-outlined">arrow_forward</span>
@@ -652,7 +652,7 @@
             <div class="mt-8 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
                 <p class="text-slate-500 text-sm mb-4">Prices vary by teacher experience, qualifications, and demand.
                     Always visible before you book.</p>
-                <a href="{{ route('login.index') }}"
+                <a href="{{ route('login') }}"
                     class="inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-xl font-bold hover:bg-primary/90 transition-colors">
                     Browse Teachers & Rates
                     <span class="material-symbols-outlined text-lg">arrow_forward</span>
