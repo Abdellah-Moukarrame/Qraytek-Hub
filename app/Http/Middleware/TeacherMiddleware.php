@@ -19,7 +19,7 @@ class TeacherMiddleware
         if (!Auth::check()) {
             return redirect()->route('login.index');
         }
-        if (Auth::user()->role!=='teacher') {
+        if (Auth::user()->role!=='teacher' && Auth::user()->status=='approved'&& Auth::user()->is_banned == false ) {
             return redirect()->route('home');
         }
         return $next($request);
