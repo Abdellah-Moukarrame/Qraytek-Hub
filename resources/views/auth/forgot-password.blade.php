@@ -190,7 +190,7 @@
 
             {{-- Back to login --}}
             <div class="animate-float-delay-4 mt-8 text-center">
-                <a href="{{ route('login.index') }}"
+                <a href="{{ route('login') }}"
                     class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary transition-colors font-medium">
                     <span class="material-symbols-outlined text-base">arrow_back</span>
                     Back to Sign In
