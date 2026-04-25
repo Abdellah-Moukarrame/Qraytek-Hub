@@ -115,13 +115,204 @@
                     {{-- Left Column --}}
                     <div class="lg:col-span-2 space-y-8">
 
+
+
+                        {{-- All Users Table --}}
+                        <div
+                            class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                            <div
+                                class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                                <h3 class="text-lg font-bold">Recent Users</h3>
+                                <a href="{{ route('admin.users.index') }}"
+                                    class="text-sm font-semibold text-primary hover:underline">
+                                    View all users
+                                </a>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="bg-slate-50 dark:bg-slate-800/50">
+                                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                                User</th>
+                                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                                Role</th>
+                                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                                Joined</th>
+                                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                                Status</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">
+                                                Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+
+                                        @forelse($users as $user)
+                                            <tr
+                                                class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors {{ $user->banned_at ? 'opacity-60' : '' }}">
+
+                                                {{-- User --}}
+                                                <td class="px-6 py-4">
+                                                    <div class="flex items-center gap-3">
+                                                        <div
+                                                            class="size-9 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm relative">
+                                                            {{ strtoupper(substr($user->name, 0, 2)) }}
+                                                            @if ($user->banned_at)
+                                                                <div
+                                                                    class="absolute -top-1 -right-1 size-4 bg-rose-500 rounded-full flex items-center justify-center">
+                                                                    <span class="material-symbols-outlined text-white"
+                                                                        style="font-size:9px">block</span>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                        <div>
+                                                            <p class="text-sm font-semibold">{{ $user->name }}</p>
+                                                            <p class="text-xs text-slate-500">{{ $user->email }}</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                {{-- Role --}}
+                                                <td class="px-6 py-4">
+                                                    @php
+                                                        $roleColors = [
+                                                            'teacher' => 'bg-primary/10 text-primary',
+                                                            'student' =>
+                                                                'bg-indigo-50 text-indigo-600 dark:bg-indigo-900/20',
+                                                        ];
+                                                    @endphp
+                                                    <span
+                                                        class="px-2.5 py-1 text-xs font-bold rounded-full {{ $roleColors[$user->role] ?? 'bg-slate-100 text-slate-500' }}">
+                                                        {{ ucfirst($user->role) }}
+                                                    </span>
+                                                </td>
+
+                                                {{-- Joined --}}
+                                                <td class="px-6 py-4 text-sm text-slate-500">
+                                                    {{ $user->created_at->diffForHumans() }}
+                                                </td>
+
+                                                {{-- Status --}}
+                                                <td class="px-6 py-4">
+                                                    @if ($user->banned_at)
+                                                        <span
+                                                            class="flex items-center gap-1.5 text-xs font-bold text-rose-600">
+                                                            <span
+                                                                class="size-1.5 rounded-full bg-rose-500 inline-block"></span>
+                                                            Banned
+                                                        </span>
+                                                    @else
+                                                        <span
+                                                            class="flex items-center gap-1.5 text-xs font-bold text-emerald-600">
+                                                            <span
+                                                                class="size-1.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+                                                            Active
+                                                        </span>
+                                                    @endif
+                                                </td>
+
+                                                {{-- Actions --}}
+                                                <td class="px-6 py-4 text-right">
+                                                    <div class="flex items-center justify-end gap-2">
+
+                                                        {{-- View --}}
+                                                        <a href="{{ route('admin.users.show', $user->id) }}"
+                                                            class="p-1.5 text-slate-500 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                                                            title="View profile">
+                                                            <span
+                                                                class="material-symbols-outlined text-lg">visibility</span>
+                                                        </a>
+
+                                                        {{-- Ban / Unban --}}
+                                                        @if ($user->banned_at)
+                                                            <form method="POST"
+                                                                action="{{ route('admin.users.unban', $user->id) }}">
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <button type="submit"
+                                                                    class="p-1.5 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-colors"
+                                                                    title="Unban user">
+                                                                    <span
+                                                                        class="material-symbols-outlined text-lg">lock_open</span>
+                                                                </button>
+                                                            </form>
+                                                        @else
+                                                            <button
+                                                                onclick="openBanModal('{{ $user->name }}', {{ $user->id }})"
+                                                                class="p-1.5 text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-lg transition-colors"
+                                                                title="Ban user">
+                                                                <span class="material-symbols-outlined text-lg">block</span>
+                                                            </button>
+                                                        @endif
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="5" class="px-6 py-10 text-center text-slate-400 text-sm">
+                                                    No users found.
+                                                </td>
+                                            </tr>
+                                        @endforelse
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        {{-- Ban Modal --}}
+                        <div id="ban-modal"
+                            class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm">
+                            <div
+                                class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-8 max-w-md w-full mx-4">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div
+                                        class="size-14 rounded-full bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-amber-600 text-3xl">block</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold">Ban User</h3>
+                                        <p class="text-sm text-slate-500">This will restrict their access immediately.</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+                                    Are you sure you want to ban
+                                    <span id="ban-user-name" class="font-bold text-slate-900 dark:text-white"></span>?
+                                </p>
+                                <form id="ban-form" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <div class="mb-4">
+                                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                            Reason <span class="text-slate-400 font-normal">(optional)</span>
+                                        </label>
+                                        <textarea name="ban_reason" rows="2" placeholder="e.g. Violation of terms..."
+                                            class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-lg py-2.5 px-4 text-sm focus:ring-2 focus:ring-amber-400/50 resize-none"></textarea>
+                                    </div>
+                                    <div class="flex gap-3">
+                                        <button type="button" onclick="closeBanModal()"
+                                            class="flex-1 py-2.5 border border-slate-200 dark:border-slate-700 text-sm font-bold rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                                            Cancel
+                                        </button>
+                                        <button type="submit"
+                                            class="flex-1 py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-xl transition-colors flex items-center justify-center gap-2">
+                                            <span class="material-symbols-outlined text-base">block</span>
+                                            Ban User
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
                         {{-- Growth Trends Chart --}}
                         <div
                             class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                             <div class="flex items-center justify-between mb-6">
                                 <div>
                                     <h3 class="text-lg font-bold">Platform Growth Trends</h3>
-                                    <p class="text-sm text-slate-500">Student & Teacher signup volume over the last 6 months
+                                    <p class="text-sm text-slate-500">Student & Teacher signup volume over the last 6
+                                        months
                                     </p>
                                 </div>
                                 <div class="flex gap-2">
@@ -149,7 +340,8 @@
                                     <path d="M0 160 Q 50 140 100 150 T 200 100 T 300 120 T 400 40 T 500 20" fill="none"
                                         stroke="#137fec" stroke-width="3" stroke-linecap="round" />
                                     <path d="M0 180 Q 50 175 100 178 T 200 150 T 300 160 T 400 110 T 500 95" fill="none"
-                                        stroke="#a5b4fc" stroke-width="2" stroke-dasharray="5,5" stroke-linecap="round" />
+                                        stroke="#a5b4fc" stroke-width="2" stroke-dasharray="5,5"
+                                        stroke-linecap="round" />
                                 </svg>
                                 <div
                                     class="absolute bottom-0 w-full flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-4 border-t border-slate-100 dark:border-slate-800">
@@ -160,116 +352,6 @@
                                     <span>May</span>
                                     <span>Jun</span>
                                 </div>
-                            </div>
-                        </div>
-
-                        {{-- Teacher Validation Requests Table --}}
-                        <div
-                            class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-                            <div
-                                class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                                <h3 class="text-lg font-bold">Teacher Validation Requests</h3>
-                                <a href="{{ route('admin.teachers.index') }}"
-                                    class="text-sm font-semibold text-primary hover:underline">
-                                    View all requests
-                                </a>
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full text-left border-collapse">
-                                    <thead>
-                                        <tr class="bg-slate-50 dark:bg-slate-800/50">
-                                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                                Teacher</th>
-                                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                                Subject</th>
-                                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                                Experience</th>
-                                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                                Applied</th>
-                                            <th
-                                                class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">
-                                                Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-
-                                        {{-- Row 1 --}}
-                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                                            <td class="px-6 py-4">
-                                                <div class="flex items-center gap-3">
-                                                    <div
-                                                        class="size-9 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm">
-                                                        SM
-                                                    </div>
-                                                    <div>
-                                                        <p class="text-sm font-semibold">Dr. Sarah Miller</p>
-                                                        <p class="text-xs text-slate-500">sarah.m@edu.com</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="px-6 py-4 text-sm">Advanced Physics</td>
-                                            <td class="px-6 py-4 text-sm">8 Years</td>
-                                            <td class="px-6 py-4 text-sm text-slate-500">2h ago</td>
-                                            <td class="px-6 py-4 text-right space-x-2">
-                                                <button
-                                                    class="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg transition-colors">Approve</button>
-                                                <button
-                                                    class="px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-900/20 dark:text-rose-400 text-xs font-bold rounded-lg transition-colors">Reject</button>
-                                            </td>
-                                        </tr>
-
-                                        {{-- Row 2 --}}
-                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                                            <td class="px-6 py-4">
-                                                <div class="flex items-center gap-3">
-                                                    <div
-                                                        class="size-9 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 font-bold text-sm">
-                                                        MR
-                                                    </div>
-                                                    <div>
-                                                        <p class="text-sm font-semibold">Marco Rossi</p>
-                                                        <p class="text-xs text-slate-500">m.rossi@language.it</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="px-6 py-4 text-sm">Italian Literature</td>
-                                            <td class="px-6 py-4 text-sm">12 Years</td>
-                                            <td class="px-6 py-4 text-sm text-slate-500">5h ago</td>
-                                            <td class="px-6 py-4 text-right space-x-2">
-                                                <button
-                                                    class="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg transition-colors">Approve</button>
-                                                <button
-                                                    class="px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-900/20 dark:text-rose-400 text-xs font-bold rounded-lg transition-colors">Reject</button>
-                                            </td>
-                                        </tr>
-
-                                        {{-- Row 3 --}}
-                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                                            <td class="px-6 py-4">
-                                                <div class="flex items-center gap-3">
-                                                    <div
-                                                        class="size-9 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 font-bold text-sm">
-                                                        EG
-                                                    </div>
-                                                    <div>
-                                                        <p class="text-sm font-semibold">Elena Gilbert</p>
-                                                        <p class="text-xs text-slate-500">egilbert@web.dev</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="px-6 py-4 text-sm">Fullstack Development</td>
-                                            <td class="px-6 py-4 text-sm">4 Years</td>
-                                            <td class="px-6 py-4 text-sm text-slate-500">Yesterday</td>
-                                            <td class="px-6 py-4 text-right space-x-2">
-                                                <button
-                                                    class="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg transition-colors">Approve</button>
-                                                <button
-                                                    class="px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-900/20 dark:text-rose-400 text-xs font-bold rounded-lg transition-colors">Reject</button>
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
 
