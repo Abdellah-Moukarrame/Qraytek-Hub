@@ -10,24 +10,24 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        $users = Personnes::where('role','!=','admin')->paginate(15);
+        return view('admin.dashboard', compact('users'));
     }
 
-    public function display_users(){
-        $users = Personnes::all()->except(['role'=>'admin']);
-        return view('admin.dashboard',compact('users'));
-    }
+    public function display_users() {}
 
-    public function ban($id){
+    public function ban($id)
+    {
         $user = Personnes::findOrFail($id);
         $user->update([
-            'is_banned'=>true,
+            'is_banned' => true,
         ])->save();
     }
-    public function unban($id){
+    public function unban($id)
+    {
         $user = Personnes::findOrFail($id);
         $user->update([
-            'is_banned'=>false,
+            'is_banned' => false,
         ])->save();
     }
 }

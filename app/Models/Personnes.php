@@ -13,6 +13,6 @@ class Personnes extends Authenticatable
 {
     use Notifiable;
 
-    protected $fillable = ['id','name','role','email','password','city','phone'];
+    protected $fillable = ['id','name','role','email','password'];
 
 }
