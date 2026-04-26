@@ -17,4 +17,5 @@ class Teacher extends Model
         'diploma_path',
         'id_card_path',
     ];
+    
 }
