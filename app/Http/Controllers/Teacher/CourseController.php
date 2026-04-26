@@ -3,41 +3,134 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Models\Courses;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
+    // ─── index ────────────────────────────────────────
     public function index()
     {
+        // $courses = Auth::user()->teacher->courses()->latest()->paginate(9);
         return view('teacher.courses.index');
     }
 
+    // ─── create ───────────────────────────────────────
     public function create()
     {
         return view('teacher.courses.create');
     }
 
-    public function store()
+    // ─── store ────────────────────────────────────────
+    public function store(Request $request)
     {
-        // logic later
+        $request->validate([
+            'title'       => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'category'    => 'required|string',
+            'level'       => 'required|in:beginner,intermediate,advanced',
+            'image_path'  => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'lessons'     => 'nullable|array',
+            'lessons.*'   => 'nullable|string|max:255',
+        ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image_path')) {
+            $imagePath = $request->file('image_path')->store('courses/covers', 'public');
+        }
+        // dd(Auth::user()->teacher->id);
+        $course = Courses::create([
+            'teacher_id'  => Auth::user()->teacher->id,
+            'title'       => $request->title,
+            'description' => $request->description,
+            'category'    => $request->category,
+            'level'       => $request->level,
+            'image_path'  => $imagePath,
+        ]);
+
+        // Save lessons
+        if ($request->lessons) {
+            foreach (array_filter($request->lessons) as $index => $title) {
+                $course->lessons()->create([
+                    'title' => $title,
+                    'order' => $index + 1,
+                ]);
+            }
+        }
+
+        return redirect()->route('teacher.courses.show', $course->id)
+            ->with('success', 'Course created successfully!');
     }
 
-    public function show($course)
+    // ─── show ─────────────────────────────────────────
+    public function show($id)
     {
-        return view('teacher.courses.show');
+        $course = Courses::with(['lessons', 'enrollments'])
+            ->where('teacher_id', Auth::user()->teacher->id)
+            ->findOrFail($id);
+
+        return view('teacher.courses.show', compact('course'));
     }
 
-    public function edit($course)
+    // ─── edit ─────────────────────────────────────────
+    public function edit($id)
     {
-        return view('teacher.courses.edit');
+        $course = Courses::where('teacher_id', Auth::user()->teacher->id)
+            ->findOrFail($id);
+
+        return view('teacher.courses.edit', compact('course'));
     }
 
-    public function update($course)
+    // ─── update ───────────────────────────────────────
+    public function update(Request $request, $id)
     {
-        // logic later
+        $course = Courses::where('teacher_id', Auth::user()->teacher->id)
+            ->findOrFail($id);
+
+        $request->validate([
+            'title'       => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'category'    => 'required|string|max:100',
+            'level'       => 'required|in:beginner,intermediate,advanced',
+            'image_path'  => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $imagePath = $course->image_path;
+        if ($request->hasFile('image_path')) {
+            if ($course->image_path) {
+                Storage::disk('public')->delete($course->image_path);
+            }
+            $imagePath = $request->file('image_path')
+                ->store('courses/covers', 'public');
+        }
+
+        $course->update([
+            'title'       => $request->title,
+            'description' => $request->description,
+            'category'    => $request->category,
+            'level'       => $request->level,
+            'image_path'  => $imagePath,
+        ]);
+
+        return redirect()->route('teacher.courses.show', $course->id)
+            ->with('success', 'Course updated successfully!');
     }
 
-    public function destroy($course)
+    // ─── destroy ──────────────────────────────────────
+    public function destroy($id)
     {
-        // logic later
+        $course = Courses::where('teacher_id', Auth::user()->teacher->id)
+            ->findOrFail($id);
+
+        if ($course->image_path) {
+            Storage::disk('public')->delete($course->image_path);
+        }
+
+        $course->delete();
+
+        return redirect()->route('teacher.courses.index')
+            ->with('success', 'Course deleted successfully!');
     }
 }
