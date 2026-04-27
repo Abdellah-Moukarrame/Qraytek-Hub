@@ -2,6 +2,7 @@
 
 namespace App\Models\Personne;
 
+use App\Models\Personnes;
 use Illuminate\Database\Eloquent\Model;
 
 class Teacher extends Model
@@ -17,5 +18,9 @@ class Teacher extends Model
         'diploma_path',
         'id_card_path',
     ];
-    
+
+    public function personne()
+    {
+        return $this->belongsTo(Personnes::class, 'personne_id');
+    }
 }
