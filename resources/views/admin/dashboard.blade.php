@@ -62,7 +62,7 @@
                                 class="text-xs font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded">+5.2%</span>
                         </div>
                         <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Teachers</p>
-                        <h3 class="text-2xl font-bold mt-1">1,240</h3>
+                        <h3 class="text-2xl font-bold mt-1">@dump($totalTeachers)</h3>
                     </div>
 
                     {{-- Active Students --}}
@@ -76,7 +76,7 @@
                                 class="text-xs font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded">+12.4%</span>
                         </div>
                         <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Active Students</p>
-                        <h3 class="text-2xl font-bold mt-1">45,800</h3>
+                        <h3 class="text-2xl font-bold mt-1">{{ $totalStudents }}</h3>
                     </div>
 
                     {{-- Monthly Revenue --}}
@@ -90,7 +90,7 @@
                                 class="text-xs font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded">+8.1%</span>
                         </div>
                         <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Monthly Revenue</p>
-                        <h3 class="text-2xl font-bold mt-1">$128,400</h3>
+                        {{-- <h3 class="text-2xl font-bold mt-1">${{ number_format($monthlyRevenue, 2) }}</h3> --}}
                     </div>
 
                     {{-- Pending Validations --}}
@@ -104,7 +104,7 @@
                                 class="text-xs font-bold text-rose-500 bg-rose-50 dark:bg-rose-900/20 px-2 py-1 rounded">-2%</span>
                         </div>
                         <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Pending Validations</p>
-                        <h3 class="text-2xl font-bold mt-1">18</h3>
+                        <h3 class="text-2xl font-bold mt-1">{{ $pendingValidations }}</h3>
                     </div>
 
                 </div>
