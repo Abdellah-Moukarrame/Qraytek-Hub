@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\TeacherController as AdminTeacher;
 use App\Http\Controllers\Admin\UserController as AdminUser;
 use App\Http\Controllers\Auth\ForgetPassController;
 use App\Http\Controllers\Auth\ResetPassController;
+use App\Http\Controllers\StatsController;
 // Teacher Controllers
 use App\Http\Controllers\Teacher\DashboardController as TeacherDashboard;
 use App\Http\Controllers\Teacher\CourseController as TeacherCourse;
@@ -58,6 +59,7 @@ Route::controller(GoogleController::class)->group(function () {
 // ─── Admin ────────────────────────────────────────────
 Route::prefix('admin')->name('admin.')->middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
+    // Route::get('/dashboard', [StatsController::class, 'adminStats'])->name('admin.dashboard');
 
     Route::get('/teachers', [AdminTeacher::class, 'index'])->name('teachers.index');
     Route::get('/teachers/{teacher}', [AdminTeacher::class, 'show'])->name('teachers.show');
@@ -73,6 +75,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', AdminMiddleware::cla
 // ─── Teacher ──────────────────────────────────────────
 Route::prefix('teacher')->name('teacher.')->middleware(['auth',TeacherMiddleware::class])->group(function () {
     Route::get('/dashboard', [TeacherDashboard::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [StatsController::class, 'teacherStats'])->name('teacher.dashboard');
+
 
     Route::get('/courses', [TeacherCourse::class, 'index'])->name('courses.index');
     Route::get('/courses/create', [TeacherCourse::class, 'create'])->name('courses.create');
@@ -95,6 +99,7 @@ Route::prefix('teacher')->name('teacher.')->middleware(['auth',TeacherMiddleware
 // ─── Student ──────────────────────────────────────────
 Route::prefix('student')->name('student.')->middleware(['auth', StudentMiddleware::class])->group(function () {
     Route::get('/dashboard', [StudentDashboard::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [StatsController::class, 'studentStats'])->name('student.dashboard');
 
     Route::get('/courses', [StudentCourse::class, 'index'])->name('courses.index');
     Route::get('/courses/{course}', [StudentCourse::class, 'show'])->name('courses.show');
