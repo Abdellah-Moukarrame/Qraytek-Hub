@@ -13,26 +13,13 @@ use Illuminate\Support\Facades\Auth;
 class StatsController extends Controller
 {
 
-    // ══════════════════════════════════════════════════
-    // ADMIN DASHBOARD STATS
-    // ══════════════════════════════════════════════════
-    // Covers:
-    // - Total Teachers (KPI card)
-    // - Active Students (KPI card)
-    // - Monthly Revenue (KPI card)
-    // - Pending Validations (KPI card)
-    // - Recent Users table
-    // - Platform Growth (chart data)
-    // ══════════════════════════════════════════════════
+    
 
     public function adminStats()
     {
-        // ─── KPI Cards ────────────────────────────────
 
-        // Total teachers (all)
         $totalTeachers = Teacher::count();
 
-        // Total active students
         $totalStudents = Personnes::where('role', 'student')->count();
 
         // Monthly revenue — sum of all confirmed bookings this month
@@ -41,17 +28,14 @@ class StatsController extends Controller
         //     ->whereYear('created_at', now()->year)
         //     ->sum('price');
 
-        // Pending teacher validations
         $pendingValidations = Teacher::where('status', 'pending')->count();
 
-        // ─── Recent Users ──────────────────────────────
 
         $recentUsers = Personnes::where('role', '!=', 'admin')
             ->latest()
             ->take(6)
             ->get();
 
-        // ─── Growth Chart (last 6 months) ─────────────
 
         $growthData = [];
         for ($i = 5; $i >= 0; $i--) {
@@ -68,7 +52,6 @@ class StatsController extends Controller
             ];
         }
 
-        // ─── Pending Teachers for validation table ─────
 
         $pendingTeachers = Teacher::with('personne')
             ->where('status', 'pending')
@@ -87,50 +70,32 @@ class StatsController extends Controller
         // ));
     }
 
-    // ══════════════════════════════════════════════════
-    // TEACHER DASHBOARD STATS
-    // ══════════════════════════════════════════════════
-    // Covers:
-    // - Total Students (KPI)
-    // - Active Courses (KPI)
-    // - Sessions This Month (KPI)
-    // - Monthly Earnings (KPI)
-    // - Upcoming Sessions list
-    // - My Courses list
-    // - Earnings Summary (this week, this month, total)
-    // - Recent Students list
-    // ══════════════════════════════════════════════════
+
 
     public function teacherStats()
     {
         $teacher = Auth::user()->teacher;
 
-        // ─── KPI Cards ────────────────────────────────
 
-        // Total unique students who booked this teacher
         $totalStudents = Booking::where('teacher_id', $teacher->id)
             ->where('status', '!=', 'cancelled')
             ->distinct('student_id')
             ->count('student_id');
 
-        // Total courses
         $totalCourses = Courses::where('teacher_id', $teacher->id)->count();
 
-        // Sessions this month (confirmed bookings)
         $sessionsThisMonth = Booking::where('teacher_id', $teacher->id)
             ->where('status', 'confirmed')
             ->whereMonth('date', now()->month)
             ->whereYear('date', now()->year)
             ->count();
 
-        // Monthly earnings
         $monthlyEarnings = Booking::where('teacher_id', $teacher->id)
             ->where('status', 'confirmed')
             ->whereMonth('date', now()->month)
             ->whereYear('date', now()->year)
             ->sum('price');
 
-        // ─── Upcoming Sessions ─────────────────────────
 
         $upcomingSessions = Booking::with(['student'])
             ->where('teacher_id', $teacher->id)
@@ -141,7 +106,6 @@ class StatsController extends Controller
             ->take(5)
             ->get();
 
-        // ─── My Courses ────────────────────────────────
 
         $courses = Courses::where('teacher_id', $teacher->id)
             ->withCount('lessons')
@@ -149,7 +113,6 @@ class StatsController extends Controller
             ->take(5)
             ->get();
 
-        // ─── Earnings Summary ──────────────────────────
 
         $earningsThisWeek = Booking::where('teacher_id', $teacher->id)
             ->where('status', 'confirmed')
@@ -166,7 +129,6 @@ class StatsController extends Controller
             ->where('status', 'confirmed')
             ->sum('price');
 
-        // ─── Recent Students ───────────────────────────
 
         $recentStudents = Booking::with(['student'])
             ->where('teacher_id', $teacher->id)
@@ -191,45 +153,28 @@ class StatsController extends Controller
         // ));
     }
 
-    // ══════════════════════════════════════════════════
-    // STUDENT DASHBOARD STATS
-    // ══════════════════════════════════════════════════
-    // Covers:
-    // - Ongoing courses count (welcome card)
-    // - Completed sessions count (welcome card)
-    // - Study hours this week (welcome card)
-    // - Continue Learning courses (with progress)
-    // - Upcoming Lessons list
-    // - Recommended teachers
-    // ══════════════════════════════════════════════════
 
     public function studentStats()
     {
         $student = Auth::user();
 
-        // ─── Welcome Card Stats ────────────────────────
 
-        // Ongoing bookings (confirmed + future)
         $ongoingCount = Booking::where('student_id', $student->id)
             ->where('status', 'confirmed')
             ->where('date', '>=', now()->toDateString())
             ->count();
 
-        // Completed sessions
         $completedCount = Booking::where('student_id', $student->id)
             ->where('status', 'completed')
             ->count();
 
-        // Study hours this week (sum of duration in minutes / 60)
         $studyMinutesThisWeek = Booking::where('student_id', $student->id)
             ->where('status', 'completed')
             ->whereBetween('date', [now()->startOfWeek(), now()->endOfWeek()])
             ->sum('duration');
         $studyHoursThisWeek = round($studyMinutesThisWeek / 60, 1);
 
-        // ─── My Courses (enrolled) ─────────────────────
 
-        // Get courses from confirmed bookings
         $myCourses = Courses::whereHas('bookings', function ($q) use ($student) {
                 $q->where('student_id', $student->id)
                   ->where('status', 'confirmed');
@@ -247,7 +192,6 @@ class StatsController extends Controller
             ->take(4)
             ->get();
 
-        // ─── Upcoming Lessons ──────────────────────────
 
         $upcomingLessons = Booking::with(['teacher.personne', 'course'])
             ->where('student_id', $student->id)
@@ -258,9 +202,7 @@ class StatsController extends Controller
             ->take(3)
             ->get();
 
-        // ─── Recommended Teachers ──────────────────────
 
-        // Teachers the student hasn't booked yet
         $bookedTeacherIds = Booking::where('student_id', $student->id)
             ->pluck('teacher_id');
 

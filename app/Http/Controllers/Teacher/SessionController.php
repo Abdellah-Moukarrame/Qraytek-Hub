@@ -18,6 +18,5 @@ class SessionController extends Controller
 
     public function store()
     {
-        // logic later
     }
 }

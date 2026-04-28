@@ -23,7 +23,7 @@ class GoogleController extends Controller
         try {
             $googleUser = Socialite::driver('google')
                 ->setHttpClient(new Client([
-                    'verify' => false // ← fixes SSL issue locally
+                    'verify' => false 
                 ]))
                 ->stateless()
                 ->user();

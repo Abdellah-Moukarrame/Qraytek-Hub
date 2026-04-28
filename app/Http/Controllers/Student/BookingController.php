@@ -18,7 +18,7 @@ class BookingController extends Controller
 
     public function store()
     {
-        // logic later
+
     }
 
     public function show($booking)
@@ -28,6 +28,6 @@ class BookingController extends Controller
 
     public function destroy($booking)
     {
-        // logic later
+        
     }
 }

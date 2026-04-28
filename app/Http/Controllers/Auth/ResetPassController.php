@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 
 class ResetPassController extends Controller
 {
-    // Show the reset form (user lands here from email link)
+    
     public function index(Request $request, string $token)
     {
         return view('auth.reset-password', [
@@ -23,7 +23,7 @@ class ResetPassController extends Controller
         ]);
     }
 
-    // Handle the new password submission
+
     public function update(Request $request)
     {
         $request->validate([
@@ -41,7 +41,7 @@ class ResetPassController extends Controller
             function (Personnes $user, string $password) {
                 $user->forceFill([
                     'password'       => Hash::make($password),
-                    // 'remember_token' => Str::random(60),
+
                 ])->save();
 
                 event(new PasswordReset($user));
@@ -49,11 +49,10 @@ class ResetPassController extends Controller
         );
 
         if ($status === Password::PASSWORD_RESET) {
-            // Auto login after reset
             $user = Personnes::where('email', $request->email)->first();
             Auth::login($user);
 
-            // Redirect by role
+
             return match($user->role) {
                 'admin'   => redirect()->route('admin.dashboard')->with('success', 'Password reset successfully!'),
                 'teacher' => redirect()->route('teacher.dashboard')->with('success', 'Password reset successfully!'),
@@ -63,7 +62,7 @@ class ResetPassController extends Controller
             };
         }
 
-        // Token expired or invalid
+
         return back()->withErrors([
             'email' => __($status)
         ]);

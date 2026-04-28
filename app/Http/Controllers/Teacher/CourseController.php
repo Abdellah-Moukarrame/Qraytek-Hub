@@ -10,20 +10,17 @@ use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
-    // ─── index ────────────────────────────────────────
     public function index()
     {
         // $courses = Auth::user()->teacher->courses()->latest()->paginate(9);
         return view('teacher.courses.index');
     }
 
-    // ─── create ───────────────────────────────────────
     public function create()
     {
         return view('teacher.courses.create');
     }
 
-    // ─── store ────────────────────────────────────────
     public function store(Request $request)
     {
         $request->validate([
@@ -50,7 +47,6 @@ class CourseController extends Controller
             'image_path'  => $imagePath,
         ]);
 
-        // Save lessons
         if ($request->lessons) {
             foreach (array_filter($request->lessons) as $index => $title) {
                 $course->lessons()->create([
@@ -64,7 +60,6 @@ class CourseController extends Controller
             ->with('success', 'Course created successfully!');
     }
 
-    // ─── show ─────────────────────────────────────────
     public function show($id)
     {
         $course = Courses::with(['lessons', 'enrollments'])
@@ -74,7 +69,6 @@ class CourseController extends Controller
         return view('teacher.courses.show', compact('course'));
     }
 
-    // ─── edit ─────────────────────────────────────────
     public function edit($id)
     {
         $course = Courses::where('teacher_id', Auth::user()->teacher->id)
@@ -83,7 +77,6 @@ class CourseController extends Controller
         return view('teacher.courses.edit', compact('course'));
     }
 
-    // ─── update ───────────────────────────────────────
     public function update(Request $request, $id)
     {
         $course = Courses::where('teacher_id', Auth::user()->teacher->id)
@@ -118,7 +111,6 @@ class CourseController extends Controller
             ->with('success', 'Course updated successfully!');
     }
 
-    // ─── destroy ──────────────────────────────────────
     public function destroy($id)
     {
         $course = Courses::where('teacher_id', Auth::user()->teacher->id)
