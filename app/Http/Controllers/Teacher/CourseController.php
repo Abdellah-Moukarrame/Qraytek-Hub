@@ -12,8 +12,13 @@ class CourseController extends Controller
 {
     public function index()
     {
-        // $courses = Auth::user()->teacher->courses()->latest()->paginate(9);
-        return view('teacher.courses.index');
+        $courses = Auth::user()->teacher
+            ->courses()
+            ->withCount(['lessons'])
+            ->latest()
+            ->paginate(9);
+
+        return view('teacher.courses.index', compact('courses'));
     }
 
     public function create()
@@ -65,8 +70,9 @@ class CourseController extends Controller
         $course = Courses::with(['lessons', 'enrollments'])
             ->where('teacher_id', Auth::user()->teacher->id)
             ->findOrFail($id);
+        $lessons = $course->lessons;
 
-        return view('teacher.courses.show', compact('course'));
+        return view('teacher.courses.show', compact('course','lessons'));
     }
 
     public function edit($id)
