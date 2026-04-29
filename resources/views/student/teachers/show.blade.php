@@ -30,26 +30,20 @@
                 {{-- Left: Profile --}}
                 <div class="space-y-6">
                     <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 flex flex-col items-center text-center">
-                        <div class="size-24 rounded-full bg-primary/20 flex items-center justify-center text-primary font-black text-3xl mb-4">SM</div>
-                        <h3 class="text-xl font-bold">Sarah Miller</h3>
-                        <p class="text-sm text-slate-500 mt-1">UI/UX Design Educator</p>
-                        <div class="flex items-center gap-1 mt-2">
-                            @for($i = 0; $i < 5; $i++)
-                            <span class="material-symbols-outlined text-yellow-400 text-sm">star</span>
-                            @endfor
-                            <span class="text-sm font-bold ml-1">4.9</span>
-                        </div>
+                        <div class="size-24 rounded-full bg-primary/20 flex items-center justify-center text-primary font-black text-3xl mb-4">{{ substr($teacher->personne->name, 0, 2) }}</div>
+                        <h3 class="text-xl font-bold">{{$teacher->personne->name}}</h3>
+                        <p class="text-sm text-slate-500 mt-1">{{$teacher->subject}}</p>
                         <div class="w-full mt-6 pt-6 border-t border-slate-100 dark:border-slate-700 grid grid-cols-3 gap-4 text-center">
                             <div>
                                 <p class="text-lg font-bold">142</p>
                                 <p class="text-xs text-slate-500">Students</p>
                             </div>
                             <div>
-                                <p class="text-lg font-bold">6</p>
+                                <p class="text-lg font-bold">{{$teacher->courses->count()}}</p>
                                 <p class="text-xs text-slate-500">Courses</p>
                             </div>
                             <div>
-                                <p class="text-lg font-bold">8yr</p>
+                                <p class="text-lg font-bold">{{$teacher->experience}}</p>
                                 <p class="text-xs text-slate-500">Experience</p>
                             </div>
                         </div>
@@ -58,7 +52,7 @@
                     {{-- Rate & Availability --}}
                     <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
                         <h4 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-4">Rate & Availability</h4>
-                        <p class="text-3xl font-black text-primary mb-1">$45<span class="text-base font-medium text-slate-400">/hr</span></p>
+                        <p class="text-3xl font-black text-primary mb-1">${{$teacher->hourly_rate}}<span class="text-base font-medium text-slate-400">/hr</span></p>
                         <p class="text-xs text-slate-500 mb-4">Per session (1 hour)</p>
                         <div class="space-y-2">
                             @foreach(['Mon — 14:00 to 18:00', 'Wed — 10:00 to 16:00', 'Fri — 09:00 to 13:00'] as $slot)
@@ -81,64 +75,28 @@
                     {{-- About --}}
                     <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
                         <h4 class="font-bold mb-3">About</h4>
+                        @if (!$teacher->bio)
+                           <h5 class="font-bold mb-3">This Teacher Has No Bio</h5>
+                        @endif
                         <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                            Sarah Miller is an award-winning UI/UX Designer with over 8 years of experience in product design and education. She has worked with major tech companies and now dedicates her expertise to helping aspiring designers master modern design systems, Figma, and interface principles.
+                            {{$teacher->bio}}
                         </p>
                     </div>
 
                     {{-- Courses --}}
                     <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
-                        <h4 class="font-bold mb-4">Courses by Sarah</h4>
+                        <h4 class="font-bold mb-4">Courses by {{$teacher->personne->name}}</h4>
                         <div class="space-y-3">
-                            @php
-                            $courses = [
-                                ['title' => 'Advanced UI Systems', 'lessons' => 24, 'students' => 54, 'rating' => 4.9],
-                                ['title' => 'Figma Mastery', 'lessons' => 18, 'students' => 38, 'rating' => 4.8],
-                                ['title' => 'Design Thinking Workshop', 'lessons' => 12, 'students' => 50, 'rating' => 4.7],
-                            ];
-                            @endphp
-                            @foreach($courses as $course)
+
+                            @foreach($teacher->courses as $course)
                             <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
                                 <div class="flex items-center gap-3">
                                     <span class="material-symbols-outlined text-primary">menu_book</span>
                                     <div>
                                         <p class="text-sm font-semibold">{{ $course['title'] }}</p>
-                                        <p class="text-xs text-slate-500">{{ $course['lessons'] }} lessons · {{ $course['students'] }} students</p>
+                                        <p class="text-xs text-slate-500">{{ $course->lessons->count() }} lessons · {{ $course['students'] }} students</p>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-1">
-                                    <span class="material-symbols-outlined text-yellow-400 text-sm">star</span>
-                                    <span class="text-xs font-bold">{{ $course['rating'] }}</span>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    {{-- Reviews --}}
-                    <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
-                        <h4 class="font-bold mb-4">Student Reviews</h4>
-                        <div class="space-y-4">
-                            @php
-                            $reviews = [
-                                ['initials' => 'AJ', 'name' => 'Alex Johnson', 'review' => 'Sarah is an incredible teacher. She explains complex concepts in a very clear and engaging way.', 'rating' => 5],
-                                ['initials' => 'LK', 'name' => 'Lisa Kim', 'review' => 'Best design mentor I have ever had. Highly recommend her courses to anyone serious about UI design.', 'rating' => 5],
-                            ];
-                            @endphp
-                            @foreach($reviews as $review)
-                            <div class="p-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <div class="size-8 rounded-full bg-slate-200 dark:bg-slate-600 flex items-center justify-center font-bold text-xs">{{ $review['initials'] }}</div>
-                                    <div>
-                                        <p class="text-sm font-bold">{{ $review['name'] }}</p>
-                                        <div class="flex">
-                                            @for($i = 0; $i < $review['rating']; $i++)
-                                            <span class="material-symbols-outlined text-yellow-400 text-xs">star</span>
-                                            @endfor
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">{{ $review['review'] }}</p>
                             </div>
                             @endforeach
                         </div>

@@ -49,10 +49,10 @@
 
                     {{-- Info --}}
                     <div>
-                        <h1 class="text-2xl font-extrabold mb-2">Advanced UI Systems</h1>
+                        <h1 class="text-2xl font-extrabold mb-2">{{$course->title}}</h1>
                         <div class="flex flex-wrap items-center gap-4 text-sm text-slate-500">
                             <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">group</span> 54 students</span>
-                            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">menu_book</span> 24 lessons</span>
+                            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">menu_book</span> {{ $course->lessons_count ?? $course->lessons()->count() }} lessons</span>
                             <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">schedule</span> 18h total</span>
                             <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base text-yellow-400">star</span> 4.9 rating</span>
                         </div>
@@ -67,26 +67,15 @@
                             </button>
                         </div>
                         <div class="divide-y divide-slate-100 dark:divide-slate-700">
-                            @php
-                            $lessons = [
-                                ['title' => 'Introduction to Design Systems', 'duration' => '45 min', 'published' => true],
-                                ['title' => 'Atomic Design Principles', 'duration' => '60 min', 'published' => true],
-                                ['title' => 'Color Theory & Typography', 'duration' => '50 min', 'published' => true],
-                                ['title' => 'Component Architecture', 'duration' => '75 min', 'published' => true],
-                                ['title' => 'Responsive Layout Systems', 'duration' => '55 min', 'published' => false],
-                            ];
-                            @endphp
-                            @foreach($lessons as $i => $lesson)
+
+                            @foreach($lessons as $lesson)
                             <div class="flex items-center gap-4 px-5 py-3 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
-                                <span class="material-symbols-outlined text-slate-300 cursor-grab">drag_indicator</span>
+                                {{-- <span class="material-symbols-outlined text-slate-300 cursor-grab">drag_indicator</span> --}}
                                 <div class="size-7 rounded-full {{ $lesson['published'] ? 'bg-emerald-100 text-emerald-600' : 'bg-slate-100 dark:bg-slate-700 text-slate-400' }} flex items-center justify-center text-xs font-bold">
-                                    {{ $i + 1 }}
+                                    {{-- {{ $i + 1 }} --}}
                                 </div>
                                 <p class="flex-1 text-sm font-semibold">{{ $lesson['title'] }}</p>
                                 <span class="text-xs text-slate-400">{{ $lesson['duration'] }}</span>
-                                @if(!$lesson['published'])
-                                <span class="text-xs text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">Draft</span>
-                                @endif
                                 <button class="p-1 text-slate-400 hover:text-primary transition-colors">
                                     <span class="material-symbols-outlined text-lg">edit</span>
                                 </button>
@@ -104,21 +93,13 @@
                     <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
                         <h4 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-4">Course Stats</h4>
                         <div class="space-y-4">
-                            @php
-                            $cstats = [
-                                ['label' => 'Enrolled Students', 'value' => '54'],
-                                ['label' => 'Sessions Held', 'value' => '120'],
-                                ['label' => 'Avg. Completion', 'value' => '68%'],
-                                ['label' => 'Revenue Generated', 'value' => '$2,430'],
-                                ['label' => 'Avg. Rating', 'value' => '4.9 ★'],
-                            ];
-                            @endphp
-                            @foreach($cstats as $stat)
+
+                            {{-- @foreach($cstats as $stat)
                             <div class="flex justify-between items-center">
                                 <span class="text-sm text-slate-500">{{ $stat['label'] }}</span>
                                 <span class="text-sm font-bold">{{ $stat['value'] }}</span>
                             </div>
-                            @endforeach
+                            @endforeach --}}
                         </div>
                     </div>
 
