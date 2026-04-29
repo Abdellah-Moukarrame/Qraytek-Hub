@@ -24,7 +24,7 @@ class Lessons extends Model
     // Lesson belongs to a Course
     public function course()
     {
-        return $this->belongsTo(Courses::class,'course_id')->orderBy('order');
+        return $this->belongsTo(Courses::class, 'course_id');
     }
 
     // ─── Accessors ────────────────────────────────────

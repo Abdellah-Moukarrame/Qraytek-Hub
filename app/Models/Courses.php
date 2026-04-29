@@ -11,7 +11,7 @@ class Courses extends Model
 
     public function lessons()
     {
-        return $this->hasMany(Lessons::class)->orderBy('order');
+        return $this->hasMany(Lessons::class, 'course_id')->orderBy('order');
     }
 
     public function teacher()
@@ -19,8 +19,8 @@ class Courses extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    // public function enrollments()
-    // {
-    //     return $this->hasMany(Enrollment::class);
-    // }
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class, 'course_id');
+    }
 }
