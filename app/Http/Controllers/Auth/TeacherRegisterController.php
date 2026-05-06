@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\TeacherApplicationPending;
 use App\Models\Personne\Teacher as PersonneTeacher;
 use App\Models\Personnes;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class TeacherRegisterController extends Controller
@@ -85,10 +87,7 @@ class TeacherRegisterController extends Controller
 
 
 
-        Auth::login($user);
-
-
-        return redirect()->route('teacher.dashboard')
-            ->with('info', 'Your application has been submitted! Our team will review it within 48 hours.');
+        Mail::to($user->email)->send(new TeacherApplicationPending($user));
+        return view('auth.teacher-pending');
     }
 }

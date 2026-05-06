@@ -4,37 +4,56 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Personne\Teacher;
+use Illuminate\Support\Facades\Storage;
 
 class TeacherController extends Controller
 {
     public function index()
     {
-        return view('admin.teachers.index');
+        $teachers = Teacher::paginate(5);
+        return view('admin.teachers.index', compact('teachers'));
     }
 
-    public function show($teacher)
+    public function show($id)
     {
-        return view('admin.teachers.show');
+        $teacher = Teacher::findOrFail($id);
+
+        return view('admin.teachers.show', compact('teacher'));
     }
 
     public function approve($id)
     {
         $teacher = Teacher::findOrFail($id);
         $teacher->update([
-            'status'=>'approved'
-        ])->save();
+            'status' => 'approved'
+        ]);
     }
 
     public function reject($id)
     {
         $teacher = Teacher::findOrFail($id);
         $teacher->update([
-            'status'=>'pending'
-        ])->save();
+            'status' => 'pending'
+        ]);
+    }
+    public function downloadDocument($id, $type)
+    {
+        $teacher = Teacher::findOrFail($id);
+
+        $path = match ($type) {
+            'cv' => $teacher->cv_path,
+            'certificate' => $teacher->certificate_path,
+            'diploma' => $teacher->diploma_path,
+            'id_card' => $teacher->id_card_path,
+            default => null,
+        };
+
+        if (!$path || !Storage::disk('private')->exists($path)) {
+            abort(404);
+        }
+
+        return Storage::disk('public')->download($path);
     }
 
-    public function destroy($teacher)
-    {
-        
-    }
+    public function destroy($teacher) {}
 }

@@ -62,7 +62,7 @@
                                 class="text-xs font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded">+5.2%</span>
                         </div>
                         <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Teachers</p>
-                        <h3 class="text-2xl font-bold mt-1">@dump($totalTeachers)</h3>
+                        <h3 class="text-2xl font-bold mt-1"></h3>
                     </div>
 
                     {{-- Active Students --}}
@@ -76,7 +76,7 @@
                                 class="text-xs font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded">+12.4%</span>
                         </div>
                         <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Active Students</p>
-                        <h3 class="text-2xl font-bold mt-1">{{ $totalStudents }}</h3>
+                        <h3 class="text-2xl font-bold mt-1"></h3>
                     </div>
 
                     {{-- Monthly Revenue --}}
@@ -104,7 +104,7 @@
                                 class="text-xs font-bold text-rose-500 bg-rose-50 dark:bg-rose-900/20 px-2 py-1 rounded">-2%</span>
                         </div>
                         <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Pending Validations</p>
-                        <h3 class="text-2xl font-bold mt-1">{{ $pendingValidations }}</h3>
+                        <h3 class="text-2xl font-bold mt-1"></h3>
                     </div>
 
                 </div>
@@ -194,7 +194,7 @@
 
                                                 {{-- Status --}}
                                                 <td class="px-6 py-4">
-                                                    @if ($user->banned_at)
+                                                    @if ($user->is_banned)
                                                         <span
                                                             class="flex items-center gap-1.5 text-xs font-bold text-rose-600">
                                                             <span
@@ -224,11 +224,13 @@
                                                         </a>
 
                                                         {{-- Ban / Unban --}}
-                                                        @if ($user->banned_at)
+                                                        @if ($user->is_banned)
+                                                            {{-- UNBAN --}}
                                                             <form method="POST"
-                                                                action="{{ route('admin.users.unban', $user->id) }}">
+                                                                action="{{ route('admin.unbanuser', $user->id) }}">
                                                                 @csrf
-                                                                @method('PATCH')
+                                                                @method('POST')
+
                                                                 <button type="submit"
                                                                     class="p-1.5 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-colors"
                                                                     title="Unban user">
@@ -237,12 +239,18 @@
                                                                 </button>
                                                             </form>
                                                         @else
-                                                            <button
-                                                                onclick="openBanModal('{{ $user->name }}', {{ $user->id }})"
-                                                                class="p-1.5 text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-lg transition-colors"
-                                                                title="Ban user">
-                                                                <span class="material-symbols-outlined text-lg">block</span>
-                                                            </button>
+                                                            {{-- BAN --}}
+                                                            <form method="POST"
+                                                                action="{{ route('admin.banuser', $user->id) }}">
+                                                                @csrf
+                                                                @method('POST')
+                                                                <button type="submit"
+                                                                    class="p-1.5 text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-lg transition-colors"
+                                                                    title="Ban user">
+                                                                    <span
+                                                                        class="material-symbols-outlined text-lg">block</span>
+                                                                </button>
+                                                            </form>
                                                         @endif
 
                                                     </div>
@@ -304,17 +312,21 @@
                                 </form>
                             </div>
                         </div>
+                        {{ $users->links() }}
+
 
                         {{-- Growth Trends Chart --}}
                         <div
                             class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+
                             <div class="flex items-center justify-between mb-6">
                                 <div>
                                     <h3 class="text-lg font-bold">Platform Growth Trends</h3>
-                                    <p class="text-sm text-slate-500">Student & Teacher signup volume over the last 6
-                                        months
+                                    <p class="text-sm text-slate-500">
+                                        Student & Teacher signup volume over the last 12 months
                                     </p>
                                 </div>
+
                                 <div class="flex gap-2">
                                     <span
                                         class="flex items-center gap-1.5 text-xs font-medium text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
@@ -326,93 +338,12 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="h-[280px] w-full relative">
-                                <svg class="w-full h-full" viewBox="0 0 500 200" preserveAspectRatio="none">
-                                    <defs>
-                                        <linearGradient id="chartGradient" x1="0" x2="0" y1="0"
-                                            y2="1">
-                                            <stop offset="0%" stop-color="#137fec" stop-opacity="0.2" />
-                                            <stop offset="100%" stop-color="#137fec" stop-opacity="0" />
-                                        </linearGradient>
-                                    </defs>
-                                    <path d="M0 160 Q 50 140 100 150 T 200 100 T 300 120 T 400 40 T 500 20 V 200 H 0 Z"
-                                        fill="url(#chartGradient)" />
-                                    <path d="M0 160 Q 50 140 100 150 T 200 100 T 300 120 T 400 40 T 500 20" fill="none"
-                                        stroke="#137fec" stroke-width="3" stroke-linecap="round" />
-                                    <path d="M0 180 Q 50 175 100 178 T 200 150 T 300 160 T 400 110 T 500 95" fill="none"
-                                        stroke="#a5b4fc" stroke-width="2" stroke-dasharray="5,5"
-                                        stroke-linecap="round" />
-                                </svg>
-                                <div
-                                    class="absolute bottom-0 w-full flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-4 border-t border-slate-100 dark:border-slate-800">
-                                    <span>Jan</span>
-                                    <span>Feb</span>
-                                    <span>Mar</span>
-                                    <span>Apr</span>
-                                    <span>May</span>
-                                    <span>Jun</span>
-                                </div>
+
+                            {{-- Chart --}}
+                            <div class="h-[280px] w-full">
+                                <canvas id="growthChart"></canvas>
                             </div>
-                        </div>
 
-                    </div>
-
-                    {{-- Right Column --}}
-                    <div class="space-y-8">
-
-
-
-                        {{-- Live Activity Feed --}}
-                        <div
-                            class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-6">Live Activity Feed
-                            </h3>
-                            <div
-                                class="space-y-6 relative before:absolute before:inset-0 before:left-3 before:border-l before:border-slate-100 dark:before:border-slate-800">
-
-                                <div class="relative pl-8">
-                                    <div
-                                        class="absolute left-0 top-1 size-6 rounded-full bg-primary/20 flex items-center justify-center text-primary -ml-3">
-                                        <span class="material-symbols-outlined text-xs">person_add</span>
-                                    </div>
-                                    <p class="text-xs text-slate-500 font-medium">10 mins ago</p>
-                                    <p class="text-sm font-medium mt-0.5"><span
-                                            class="font-bold text-slate-900 dark:text-white">James Wilson</span> signed up
-                                        as a student.</p>
-                                </div>
-
-                                <div class="relative pl-8">
-                                    <div
-                                        class="absolute left-0 top-1 size-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-600 -ml-3">
-                                        <span class="material-symbols-outlined text-xs">payments</span>
-                                    </div>
-                                    <p class="text-xs text-slate-500 font-medium">45 mins ago</p>
-                                    <p class="text-sm font-medium mt-0.5"><span
-                                            class="font-bold text-slate-900 dark:text-white">$45.00</span> payment received
-                                        from <span class="text-primary font-bold">@lisa_k</span>.</p>
-                                </div>
-
-                                <div class="relative pl-8">
-                                    <div
-                                        class="absolute left-0 top-1 size-6 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-600 -ml-3">
-                                        <span class="material-symbols-outlined text-xs">assignment_turned_in</span>
-                                    </div>
-                                    <p class="text-xs text-slate-500 font-medium">2 hours ago</p>
-                                    <p class="text-sm font-medium mt-0.5"><span
-                                            class="font-bold text-slate-900 dark:text-white">New Course Draft</span>
-                                        submitted for review by Prof. Oak.</p>
-                                </div>
-
-                                <div class="relative pl-8">
-                                    <div
-                                        class="absolute left-0 top-1 size-6 rounded-full bg-primary/20 flex items-center justify-center text-primary -ml-3">
-                                        <span class="material-symbols-outlined text-xs">campaign</span>
-                                    </div>
-                                    <p class="text-xs text-slate-500 font-medium">3 hours ago</p>
-                                    <p class="text-sm font-medium mt-0.5">Global system announcement published.</p>
-                                </div>
-
-                            </div>
                         </div>
 
                     </div>
@@ -425,15 +356,15 @@
             <footer
                 class="mt-auto p-8 flex justify-between items-center text-slate-400 text-xs font-medium border-t border-slate-200 dark:border-slate-800">
                 <p>© {{ date('Y') }} EduMaster E-learning Systems.</p>
-                <div class="flex gap-6">
-                    <a href="#" class="hover:text-primary transition-colors">Documentation</a>
-                    <a href="#" class="hover:text-primary transition-colors">Support</a>
-                    <a href="#" class="hover:text-primary transition-colors">API Status</a>
-                </div>
             </footer>
 
         </main>
 
     </div>
 
+    <script>
+        const months = @json($months);
+        const teachers = @json($teachers);
+        const students = @json($students);
+    </script>
 @endsection

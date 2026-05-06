@@ -11,6 +11,11 @@ use GuzzleHttp\Client;
 
 class GoogleController extends Controller
 {
+    private function httpClient()
+    {
+        return new Client(['verify' => false]);
+    }
+
     public function redirect()
     {
         return Socialite::driver('google')
@@ -22,19 +27,16 @@ class GoogleController extends Controller
     {
         try {
             $googleUser = Socialite::driver('google')
-                ->setHttpClient(new Client([
-                    'verify' => false 
-                ]))
+                ->setHttpClient($this->httpClient())
                 ->stateless()
                 ->user();
 
         } catch (\Exception $e) {
-            dd([
-                'message' => $e->getMessage(),
-                'class'   => get_class($e),
-            ]);
+            return redirect()->route('login')
+                ->withErrors(['email' => 'Google login failed: ' . $e->getMessage()]);
         }
 
+        // Find or create user
         $user = Personnes::where('email', $googleUser->getEmail())->first();
 
         if (!$user) {
@@ -53,7 +55,7 @@ class GoogleController extends Controller
             'teacher' => redirect()->route('teacher.dashboard'),
             'student' => redirect()->route('student.dashboard'),
             'parent'  => redirect()->route('parent.dashboard'),
-            default   => redirect()->route('home'),
+            default   => redirect()->route('login'),
         };
     }
 }

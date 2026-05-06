@@ -185,74 +185,7 @@
 
                 </div>
 
-                {{-- Right Sidebar --}}
-                <div class="space-y-6">
-
-                    {{-- Upcoming Lessons --}}
-                    <section class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
-                        <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
-                            <span class="material-symbols-outlined text-primary">event_upcoming</span>
-                            Upcoming Lessons
-                        </h3>
-                        <div class="space-y-4">
-
-                            @php
-                            $lessons = [
-                                ['initials' => 'SM', 'color' => 'bg-primary/20 text-primary', 'name' => 'Sarah Miller', 'subject' => 'UI Design Mentorship', 'day' => 'Today', 'time' => '14:00 PM', 'joinable' => true],
-                                ['initials' => 'DC', 'color' => 'bg-emerald-100 text-emerald-600', 'name' => 'David Chen', 'subject' => 'React Architecture', 'day' => 'Tomorrow', 'time' => '10:30 AM', 'joinable' => false],
-                                ['initials' => 'ER', 'color' => 'bg-amber-100 text-amber-600', 'name' => 'Elena Rodriguez', 'subject' => 'Spanish Advanced', 'day' => 'Oct 24', 'time' => '09:00 AM', 'joinable' => false],
-                            ];
-                            @endphp
-
-                            @foreach($lessons as $lesson)
-                            <div class="p-4 rounded-xl {{ $lesson['joinable'] ? 'bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800' : 'border border-slate-100 dark:border-slate-800' }} {{ !$lesson['joinable'] && $loop->last ? 'opacity-60' : '' }} flex flex-col gap-3">
-                                <div class="flex items-center gap-3">
-                                    <div class="size-10 rounded-lg {{ $lesson['color'] }} flex items-center justify-center font-bold text-sm">
-                                        {{ $lesson['initials'] }}
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-bold text-slate-900 dark:text-white">{{ $lesson['name'] }}</p>
-                                        <p class="text-[11px] text-slate-500 uppercase tracking-tighter">{{ $lesson['subject'] }}</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="text-xs font-bold {{ $lesson['joinable'] ? 'text-primary' : '' }}">{{ $lesson['day'] }}</p>
-                                        <p class="text-[10px] text-slate-400">{{ $lesson['time'] }}</p>
-                                    </div>
-                                </div>
-                                @if($lesson['joinable'])
-                                <button class="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
-                                    <span class="material-symbols-outlined text-sm">video_call</span>
-                                    Join Lesson
-                                </button>
-                                @endif
-                            </div>
-                            @endforeach
-
-                        </div>
-                        <a href="{{ route('student.bookings.index') }}"
-                            class="mt-6 w-full py-2 text-slate-500 text-sm font-semibold hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors rounded-lg border border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-center">
-                            Show Full Schedule
-                        </a>
-                    </section>
-
-                    {{-- Upgrade Banner --}}
-                    <section class="bg-primary rounded-2xl p-6 text-white relative overflow-hidden">
-                        <div class="relative z-10">
-                            <h4 class="text-lg font-bold mb-2">Unlock Premium</h4>
-                            <p class="text-xs mb-4 opacity-90 leading-relaxed">
-                                Get unlimited access to 1-on-1 sessions and certificates.
-                            </p>
-                            <button class="bg-white text-primary px-4 py-2 rounded-lg text-xs font-bold hover:bg-slate-50 transition-colors">
-                                Upgrade Now
-                            </button>
-                        </div>
-                        <div class="absolute -bottom-4 -right-4 size-24 bg-white/10 rounded-full blur-xl"></div>
-                        <div class="absolute top-0 right-0 p-4 opacity-20">
-                            <span class="material-symbols-outlined text-4xl">workspace_premium</span>
-                        </div>
-                    </section>
-
-                </div>
+                
 
             </div>
         </div>

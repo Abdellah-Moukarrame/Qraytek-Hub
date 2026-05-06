@@ -85,16 +85,7 @@
                         </thead>
                         <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
 
-                            @php
-                            $teachers = [
-                                ['initials' => 'SM', 'color' => 'bg-primary/20 text-primary', 'name' => 'Dr. Sarah Miller', 'email' => 'sarah.m@edu.com', 'subject' => 'Advanced Physics', 'students' => 142, 'joined' => 'Jan 12, 2024', 'status' => 'approved'],
-                                ['initials' => 'MR', 'color' => 'bg-indigo-100 text-indigo-600', 'name' => 'Marco Rossi', 'email' => 'm.rossi@language.it', 'subject' => 'Italian Literature', 'students' => 89, 'joined' => 'Feb 3, 2024', 'status' => 'approved'],
-                                ['initials' => 'EG', 'color' => 'bg-emerald-100 text-emerald-600', 'name' => 'Elena Gilbert', 'email' => 'egilbert@web.dev', 'subject' => 'Fullstack Development', 'students' => 0, 'joined' => 'Mar 28, 2024', 'status' => 'pending'],
-                                ['initials' => 'JK', 'color' => 'bg-amber-100 text-amber-600', 'name' => 'James Kowalski', 'email' => 'j.kowalski@math.pl', 'subject' => 'Mathematics', 'students' => 0, 'joined' => 'Apr 1, 2024', 'status' => 'pending'],
-                                ['initials' => 'AL', 'color' => 'bg-rose-100 text-rose-600', 'name' => 'Amina Larbi', 'email' => 'amina.l@arabic.ma', 'subject' => 'Arabic Language', 'students' => 210, 'joined' => 'Dec 5, 2023', 'status' => 'approved'],
-                                ['initials' => 'TC', 'color' => 'bg-purple-100 text-purple-600', 'name' => 'Thomas Chen', 'email' => 'thomas.c@science.us', 'subject' => 'Chemistry', 'students' => 0, 'joined' => 'Apr 2, 2024', 'status' => 'rejected'],
-                            ];
-                            @endphp
+
 
                             @foreach($teachers as $teacher)
                             <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
@@ -104,14 +95,14 @@
                                             {{ $teacher['initials'] }}
                                         </div>
                                         <div>
-                                            <p class="text-sm font-semibold">{{ $teacher['name'] }}</p>
-                                            <p class="text-xs text-slate-500">{{ $teacher['email'] }}</p>
+                                            <p class="text-sm font-semibold">{{ $teacher->personne->name }}</p>
+                                            <p class="text-xs text-slate-500">{{ $teacher->personne->email }}</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 text-sm">{{ $teacher['subject'] }}</td>
                                 <td class="px-6 py-4 text-sm font-medium">{{ $teacher['students'] }}</td>
-                                <td class="px-6 py-4 text-sm text-slate-500">{{ $teacher['joined'] }}</td>
+                                <td class="px-6 py-4 text-sm text-slate-500">{{ $teacher->personne->created_at }}</td>
                                 <td class="px-6 py-4">
                                     @if($teacher['status'] === 'approved')
                                         <span class="px-2.5 py-1 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 text-xs font-bold rounded-full">Approved</span>
@@ -123,7 +114,7 @@
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex items-center justify-end gap-2">
-                                        <a href="{{ route('admin.teachers.show', 1) }}" class="p-1.5 text-slate-500 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors">
+                                        <a href="{{ route('admin.teachers.show', $teacher->id) }}" class="p-1.5 text-slate-500 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors">
                                             <span class="material-symbols-outlined text-lg">visibility</span>
                                         </a>
                                         @if($teacher['status'] === 'pending')
@@ -142,23 +133,7 @@
                     </table>
                 </div>
 
-                {{-- Pagination --}}
-                <div class="p-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                    <p class="text-sm text-slate-500">Showing <span class="font-semibold text-slate-700 dark:text-slate-300">1–8</span> of <span class="font-semibold text-slate-700 dark:text-slate-300">1,240</span> teachers</p>
-                    <div class="flex items-center gap-2">
-                        <button class="p-2 rounded-lg text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors disabled:opacity-40" disabled>
-                            <span class="material-symbols-outlined text-lg">chevron_left</span>
-                        </button>
-                        <button class="size-9 rounded-lg bg-primary text-white text-sm font-bold">1</button>
-                        <button class="size-9 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium transition-colors">2</button>
-                        <button class="size-9 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium transition-colors">3</button>
-                        <span class="text-slate-400 text-sm">...</span>
-                        <button class="size-9 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium transition-colors">155</button>
-                        <button class="p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                            <span class="material-symbols-outlined text-lg">chevron_right</span>
-                        </button>
-                    </div>
-                </div>
+                {{$teachers->links()}}
             </div>
 
         </div>

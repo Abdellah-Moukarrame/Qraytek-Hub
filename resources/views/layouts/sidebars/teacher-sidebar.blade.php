@@ -45,12 +45,6 @@
                 <span>My Students</span>
             </a>
 
-            <a href="{{ route('teacher.messages.index') }}"
-                class="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors
-                    {{ request()->routeIs('teacher.messages.*') ? 'bg-primary/10 text-primary font-medium' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800' }}">
-                <span class="material-symbols-outlined">chat_bubble</span>
-                <span>Messages</span>
-            </a>
         </div>
 
         <div class="py-4 border-t border-slate-100 dark:border-slate-800">

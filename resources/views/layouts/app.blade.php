@@ -11,6 +11,7 @@
 
     <!-- Vite (Tailwind) -->
     @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
 
     <style>
         .material-symbols-outlined {

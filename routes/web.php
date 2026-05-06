@@ -54,7 +54,9 @@ Route::controller(GoogleController::class)->group(function () {
     Route::get('/auth/redirect/{provider}', 'redirect')->name('google.redirect');
 });
 
-// routes/web.php
+
+
+
 
 // ─── Admin ────────────────────────────────────────────
 Route::prefix('admin')->name('admin.')->middleware(['auth', AdminMiddleware::class])->group(function () {
@@ -70,12 +72,17 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', AdminMiddleware::cla
     Route::get('/users', [AdminUser::class, 'index'])->name('users.index');
     Route::get('/users/{user}', [AdminUser::class, 'show'])->name('users.show');
     Route::delete('/users/{user}', [AdminUser::class, 'destroy'])->name('users.destroy');
+    Route::post('/ban_user/{id}', [AdminDashboard::class, 'ban_user'])
+        ->name('banuser');
+
+    Route::post('/unban_user/{id}', [AdminDashboard::class, 'unban_user'])->name('unbanuser');
+    Route::get('/admin/teachers/{id}/download/{type}',[AdminTeacher::class,'downloadDocument'])->name('admin.teachers.download');
 });
 
 // ─── Teacher ──────────────────────────────────────────
-Route::prefix('teacher')->name('teacher.')->middleware(['auth',TeacherMiddleware::class])->group(function () {
+Route::prefix('teacher')->name('teacher.')->middleware(['auth', TeacherMiddleware::class])->group(function () {
     Route::get('/dashboard', [TeacherDashboard::class, 'index'])->name('dashboard');
-    Route::get('/dashboard', [StatsController::class, 'teacherStats'])->name('teacher.dashboard');
+    // Route::get('/dashboard', [StatsController::class, 'teacherStats'])->name('teacher.dashboard');
 
 
     Route::get('/courses', [TeacherCourse::class, 'index'])->name('courses.index');
@@ -94,12 +101,16 @@ Route::prefix('teacher')->name('teacher.')->middleware(['auth',TeacherMiddleware
     Route::get('/students/{student}', [TeacherStudent::class, 'show'])->name('students.show');
 
     Route::get('/messages', [TeacherMessage::class, 'index'])->name('messages.index');
+    Route::get('/pending', function () {
+        return view('auth.teacher-pending');
+    })->name('teacher.pending');
 });
+
 
 // ─── Student ──────────────────────────────────────────
 Route::prefix('student')->name('student.')->middleware(['auth', StudentMiddleware::class])->group(function () {
     Route::get('/dashboard', [StudentDashboard::class, 'index'])->name('dashboard');
-    Route::get('/dashboard', [StatsController::class, 'studentStats'])->name('student.dashboard');
+    // Route::get('/dashboard', [StatsController::class, 'studentStats'])->name('student.dashboard');
 
     Route::get('/courses', [StudentCourse::class, 'index'])->name('courses.index');
     Route::get('/courses/{course}', [StudentCourse::class, 'show'])->name('courses.show');

@@ -24,41 +24,45 @@
             <div class="flex-1 overflow-y-auto p-8 space-y-6">
 
                 {{-- Stats --}}
+                {{-- Stats --}}
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    @php
-                        $stats = [
-                            [
-                                'label' => 'Total Courses',
-                                'value' => '6',
-                                'icon' => 'menu_book',
-                                'color' => 'bg-primary/10 text-primary',
-                            ],
-                            [
-                                'label' => 'Published',
-                                'value' => '4',
-                                'icon' => 'public',
-                                'color' => 'bg-emerald-50 text-emerald-600',
-                            ],
-                            [
-                                'label' => 'Drafts',
-                                'value' => '2',
-                                'icon' => 'draft',
-                                'color' => 'bg-amber-50 text-amber-600',
-                            ],
-                        ];
-                    @endphp
-                    @foreach ($stats as $stat)
-                        <div
-                            class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4">
-                            <div class="p-3 {{ $stat['color'] }} rounded-xl">
-                                <span class="material-symbols-outlined">{{ $stat['icon'] }}</span>
-                            </div>
-                            <div>
-                                <p class="text-xs text-slate-500 font-medium">{{ $stat['label'] }}</p>
-                                <h3 class="text-2xl font-bold">{{ $stat['value'] }}</h3>
-                            </div>
+
+                    {{-- Total Courses --}}
+                    <div
+                        class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4">
+                        <div class="p-3 bg-primary/10 text-primary rounded-xl">
+                            <span class="material-symbols-outlined">menu_book</span>
                         </div>
-                    @endforeach
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">Total Courses</p>
+                            <h3 class="text-2xl font-bold">{{ $courses->total() }}</h3>
+                        </div>
+                    </div>
+
+                    {{-- Total Lessons --}}
+                    <div
+                        class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4">
+                        <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
+                            <span class="material-symbols-outlined">list_alt</span>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">Total Lessons</p>
+                            <h3 class="text-2xl font-bold">{{ $courses->sum('lessons_count') }}</h3>
+                        </div>
+                    </div>
+
+                    {{-- Total Students --}}
+                    <div
+                        class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4">
+                        <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
+                            <span class="material-symbols-outlined">group</span>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">Total Students</p>
+                            <h3 class="text-2xl font-bold">{{ $courses->sum('enrollments_count') }}</h3>
+                        </div>
+                    </div>
+
                 </div>
 
                 {{-- Courses Grid --}}
