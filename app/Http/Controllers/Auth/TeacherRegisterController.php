@@ -88,6 +88,6 @@ class TeacherRegisterController extends Controller
 
 
         Mail::to($user->email)->send(new TeacherApplicationPending($user));
-        return view('auth.teacher-pending');
+        return redirect()->route('teacher.pending');
     }
 }

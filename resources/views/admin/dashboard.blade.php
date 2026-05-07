@@ -48,67 +48,6 @@
             {{-- Dashboard Body --}}
             <div class="p-8 space-y-8">
 
-                {{-- KPI Stats Grid --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-                    {{-- Total Teachers --}}
-                    <div
-                        class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="p-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 rounded-lg">
-                                <span class="material-symbols-outlined">person_pin_circle</span>
-                            </div>
-                            <span
-                                class="text-xs font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded">+5.2%</span>
-                        </div>
-                        <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Teachers</p>
-                        <h3 class="text-2xl font-bold mt-1"></h3>
-                    </div>
-
-                    {{-- Active Students --}}
-                    <div
-                        class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="p-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 rounded-lg">
-                                <span class="material-symbols-outlined">group</span>
-                            </div>
-                            <span
-                                class="text-xs font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded">+12.4%</span>
-                        </div>
-                        <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Active Students</p>
-                        <h3 class="text-2xl font-bold mt-1"></h3>
-                    </div>
-
-                    {{-- Monthly Revenue --}}
-                    <div
-                        class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="p-2 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 rounded-lg">
-                                <span class="material-symbols-outlined">payments</span>
-                            </div>
-                            <span
-                                class="text-xs font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded">+8.1%</span>
-                        </div>
-                        <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Monthly Revenue</p>
-                        {{-- <h3 class="text-2xl font-bold mt-1">${{ number_format($monthlyRevenue, 2) }}</h3> --}}
-                    </div>
-
-                    {{-- Pending Validations --}}
-                    <div
-                        class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="p-2 bg-amber-50 dark:bg-amber-900/20 text-amber-600 rounded-lg">
-                                <span class="material-symbols-outlined">pending_actions</span>
-                            </div>
-                            <span
-                                class="text-xs font-bold text-rose-500 bg-rose-50 dark:bg-rose-900/20 px-2 py-1 rounded">-2%</span>
-                        </div>
-                        <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Pending Validations</p>
-                        <h3 class="text-2xl font-bold mt-1"></h3>
-                    </div>
-
-                </div>
-
                 {{-- Main Dashboard Layout --}}
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 

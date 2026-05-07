@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\TeacherController as AdminTeacher;
 use App\Http\Controllers\Admin\UserController as AdminUser;
 use App\Http\Controllers\Auth\ForgetPassController;
 use App\Http\Controllers\Auth\ResetPassController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StatsController;
 // Teacher Controllers
 use App\Http\Controllers\Teacher\DashboardController as TeacherDashboard;
@@ -27,7 +28,6 @@ use App\Http\Controllers\Student\DashboardController as StudentDashboard;
 use App\Http\Controllers\Student\CourseController as StudentCourse;
 use App\Http\Controllers\Student\BookingController as StudentBooking;
 use App\Http\Controllers\Student\TeacherController as StudentTeacher;
-use App\Http\Controllers\Student\ProgressController as StudentProgress;
 use App\Http\Controllers\Student\MessageController as StudentMessage;
 use App\Http\Middleware\TeacherMiddleware;
 
@@ -58,7 +58,7 @@ Route::controller(GoogleController::class)->group(function () {
 
 
 
-// ─── Admin ────────────────────────────────────────────
+//Admin
 Route::prefix('admin')->name('admin.')->middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
     // Route::get('/dashboard', [StatsController::class, 'adminStats'])->name('admin.dashboard');
@@ -72,14 +72,16 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', AdminMiddleware::cla
     Route::get('/users', [AdminUser::class, 'index'])->name('users.index');
     Route::get('/users/{user}', [AdminUser::class, 'show'])->name('users.show');
     Route::delete('/users/{user}', [AdminUser::class, 'destroy'])->name('users.destroy');
-    Route::post('/ban_user/{id}', [AdminDashboard::class, 'ban_user'])
-        ->name('banuser');
+    Route::post('/ban_user/{id}', [AdminDashboard::class, 'ban_user'])->name('banuser');
 
     Route::post('/unban_user/{id}', [AdminDashboard::class, 'unban_user'])->name('unbanuser');
-    Route::get('/admin/teachers/{id}/download/{type}',[AdminTeacher::class,'downloadDocument'])->name('admin.teachers.download');
+    Route::get('/teachers/{id}/download/{type}', [AdminTeacher::class, 'downloadDocument'])->name('teachers.download');
+    Route::post('/teachers/{teacher}/approve', [AdminTeacher::class, 'approve'])->name('teachers.approve');
+
+    Route::post('/teachers/{teacher}/reject', [AdminTeacher::class, 'reject'])->name('teachers.reject');
 });
 
-// ─── Teacher ──────────────────────────────────────────
+//Teacher
 Route::prefix('teacher')->name('teacher.')->middleware(['auth', TeacherMiddleware::class])->group(function () {
     Route::get('/dashboard', [TeacherDashboard::class, 'index'])->name('dashboard');
     // Route::get('/dashboard', [StatsController::class, 'teacherStats'])->name('teacher.dashboard');
@@ -101,13 +103,13 @@ Route::prefix('teacher')->name('teacher.')->middleware(['auth', TeacherMiddlewar
     Route::get('/students/{student}', [TeacherStudent::class, 'show'])->name('students.show');
 
     Route::get('/messages', [TeacherMessage::class, 'index'])->name('messages.index');
-    Route::get('/pending', function () {
-        return view('auth.teacher-pending');
-    })->name('teacher.pending');
 });
+Route::get('/register/teacher/pending', function () {
+    return view('auth.teacher-pending');
+})->name('teacher.pending');
 
 
-// ─── Student ──────────────────────────────────────────
+//Student
 Route::prefix('student')->name('student.')->middleware(['auth', StudentMiddleware::class])->group(function () {
     Route::get('/dashboard', [StudentDashboard::class, 'index'])->name('dashboard');
     // Route::get('/dashboard', [StatsController::class, 'studentStats'])->name('student.dashboard');
@@ -124,6 +126,13 @@ Route::prefix('student')->name('student.')->middleware(['auth', StudentMiddlewar
     Route::get('/bookings/{booking}', [StudentBooking::class, 'show'])->name('bookings.show');
     Route::delete('/bookings/{booking}', [StudentBooking::class, 'destroy'])->name('bookings.destroy');
 
-    Route::get('/progress', [StudentProgress::class, 'index'])->name('progress.index');
     Route::get('/messages', [StudentMessage::class, 'index'])->name('messages.index');
+});
+
+//Payment
+Route::prefix('payment')->name('payment.')->middleware(['auth', 'student'])->group(function () {
+    Route::get('/checkout/{booking}',  [PaymentController::class, 'checkout'])->name('checkout');
+    Route::post('/process',            [PaymentController::class, 'process'])->name('process');
+    Route::get('/success',             [PaymentController::class, 'success'])->name('success');
+    Route::get('/failed',              [PaymentController::class, 'failed'])->name('failed');
 });

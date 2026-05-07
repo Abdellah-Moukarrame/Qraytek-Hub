@@ -10,8 +10,13 @@ class TeacherController extends Controller
 {
     public function index()
     {
+        $totalTeachers = Teacher::count();
+
+        $pendingTeachers = Teacher::where('status', 'pending')->count();
+
+        $approvedTeachers = Teacher::where('status', 'approved')->count();
         $teachers = Teacher::paginate(5);
-        return view('admin.teachers.index', compact('teachers'));
+        return view('admin.teachers.index', compact('teachers','totalTeachers','pendingTeachers','approvedTeachers'));
     }
 
     public function show($id)
@@ -27,14 +32,16 @@ class TeacherController extends Controller
         $teacher->update([
             'status' => 'approved'
         ]);
+        return redirect()->back();
     }
 
     public function reject($id)
     {
         $teacher = Teacher::findOrFail($id);
         $teacher->update([
-            'status' => 'pending'
+            'status' => 'reject'
         ]);
+        return redirect()->back();
     }
     public function downloadDocument($id, $type)
     {
@@ -52,7 +59,7 @@ class TeacherController extends Controller
             abort(404);
         }
 
-        return Storage::disk('public')->download($path);
+        return Storage::disk('private')->download($path);
     }
 
     public function destroy($teacher) {}

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Personne\Admin;
+use App\Models\Personne\Student;
 use App\Models\Personnes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -18,39 +20,49 @@ class GoogleController extends Controller
 
     public function redirect()
     {
-        return Socialite::driver('google')
-            ->stateless()
-            ->redirect();
+        return Socialite::driver('google')->stateless()->redirect();
     }
 
     public function callback()
     {
         try {
-            $googleUser = Socialite::driver('google')
-                ->setHttpClient($this->httpClient())
-                ->stateless()
-                ->user();
-
+            $googleUser = Socialite::driver('google')->setHttpClient($this->httpClient())->stateless()->user();
         } catch (\Exception $e) {
-            return redirect()->route('login')
-                ->withErrors(['email' => 'Google login failed: ' . $e->getMessage()]);
+            return redirect()->route('login')->withErrors(['email' => 'Google login failed: ' . $e->getMessage()]);
         }
 
-        // Find or create user
         $user = Personnes::where('email', $googleUser->getEmail())->first();
 
         if (!$user) {
+
+            $isFirstUser = Personnes::count() === 0;
+
+            $role = $isFirstUser ? 'admin' : 'student';
+
             $user = Personnes::create([
                 'name'     => $googleUser->getName(),
                 'email'    => $googleUser->getEmail(),
                 'password' => bcrypt(Str::random(16)),
-                'role'     => 'student',
+                'role'     => $role,
             ]);
+
+            if ($role === 'student') {
+
+                Student::create([
+                    'personne_id' => $user->id,
+                ]);
+            } else {
+
+                Admin::create([
+                    'personne_id' => $user->id,
+                ]);
+            }
         }
 
         Auth::login($user);
 
-        return match($user->role) {
+
+        return match ($user->role) {
             'admin'   => redirect()->route('admin.dashboard'),
             'teacher' => redirect()->route('teacher.dashboard'),
             'student' => redirect()->route('student.dashboard'),

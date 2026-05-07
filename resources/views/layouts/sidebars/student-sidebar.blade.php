@@ -44,12 +44,6 @@
                 <span class="material-symbols-outlined">calendar_month</span>
                 <span>Bookings</span>
             </a>
-
-            <a href="{{ route('student.progress.index') }}"
-                class="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors
-                    {{ request()->routeIs('student.progress.*') ? 'bg-primary/10 text-primary font-medium' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800' }}">
-                <span class="material-symbols-outlined">trending_up</span>
-                <span>My Progress</span>
             </a>
         </div>
 
